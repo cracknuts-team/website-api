@@ -1,0 +1,1421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cracker &mdash; CrackNuts API Documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=bda95818"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=beaddf03"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="Acquisition" href="acquisition.html" />
+    <link rel="prev" title="CrackNuts API 文档" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CrackNuts
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Cracker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands"><code class="docutils literal notranslate"><span class="pre">CommonCommands</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_CAN_FREQ"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_CAN_FREQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_CAN_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_CAN_TIMEOUT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_CA_DATA"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_CA_DATA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_FREQ"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_I2C_FREQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_I2C_TIMEOUT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_TRANSCEIVE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_I2C_TRANSCEIVE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_READ_REGISTER"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_READ_REGISTER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_BAUD"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SERIAL_BAUD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_DATA"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SERIAL_DATA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_ODD_EVE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SERIAL_ODD_EVE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_STOP"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SERIAL_STOP</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_WIDTH"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SERIAL_WIDTH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_CPHA"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SPI_CPHA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_CPOL"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SPI_CPOL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_DATA"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SPI_DATA</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_DATA_LEN"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SPI_DATA_LEN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_FREQ"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SPI_FREQ</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_SPI_TIMEOUT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_WRITE_REGISTER"><code class="docutils literal notranslate"><span class="pre">CommonCommands.CRACKER_WRITE_REGISTER</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.GET_ID"><code class="docutils literal notranslate"><span class="pre">CommonCommands.GET_ID</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.GET_NAME"><code class="docutils literal notranslate"><span class="pre">CommonCommands.GET_NAME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.GET_VERSION"><code class="docutils literal notranslate"><span class="pre">CommonCommands.GET_VERSION</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.NUT_CLOCK"><code class="docutils literal notranslate"><span class="pre">CommonCommands.NUT_CLOCK</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.NUT_ENABLE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.NUT_ENABLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.NUT_INTERFACE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.NUT_INTERFACE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.NUT_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">CommonCommands.NUT_TIMEOUT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.NUT_VOLTAGE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.NUT_VOLTAGE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.NUT_VOLTAGE_RAW"><code class="docutils literal notranslate"><span class="pre">CommonCommands.NUT_VOLTAGE_RAW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_BIAS_VOLTAGE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_BIAS_VOLTAGE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_CHANNEL_ENABLE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_CHANNEL_ENABLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_COUPLING"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_COUPLING</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_GAIN"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_GAIN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_GAIN_RAW"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_GAIN_RAW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_TRIGGER_SOURCE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_TRIGGER_SOURCE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_TRIGGER_VOLTAGE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_TRIGGER_VOLTAGE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_VOLTAGE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_ANALOG_VOLTAGE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_BASE_FREQ_MUL_DIV"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_CLOCK_BASE_FREQ_MUL_DIV</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_NUT_DIVISOR"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_CLOCK_NUT_DIVISOR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SAMPLE_DIVISOR"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_CLOCK_SAMPLE_DIVISOR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SAMPLE_PHASE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_CLOCK_SAMPLE_PHASE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SIMPLE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_CLOCK_SIMPLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_UPDATE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_CLOCK_UPDATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_CHANNEL_ENABLE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_DIGITAL_CHANNEL_ENABLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_TRIGGER_SOURCE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_DIGITAL_TRIGGER_SOURCE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_VOLTAGE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_DIGITAL_VOLTAGE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_FORCE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_FORCE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_GET_ANALOG_WAVES"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_GET_ANALOG_WAVES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_GET_DIGITAL_WAVES"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_GET_DIGITAL_WAVES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_IS_TRIGGERED"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_IS_TRIGGERED</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_DELAY"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_SAMPLE_DELAY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_LENGTH"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_SAMPLE_LENGTH</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_RATE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_SAMPLE_RATE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SINGLE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_SINGLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_EDGE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_TRIGGER_EDGE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_EDGE_LEVEL"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_TRIGGER_EDGE_LEVEL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_MODE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.OSC_TRIGGER_MODE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCommands.SPI_TRANSCEIVE"><code class="docutils literal notranslate"><span class="pre">CommonCommands.SPI_TRANSCEIVE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig"><code class="docutils literal notranslate"><span class="pre">CommonConfig</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig.__init__"><code class="docutils literal notranslate"><span class="pre">CommonConfig.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig.bind"><code class="docutils literal notranslate"><span class="pre">CommonConfig.bind()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig.dump_to_json"><code class="docutils literal notranslate"><span class="pre">CommonConfig.dump_to_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig.load_from_json"><code class="docutils literal notranslate"><span class="pre">CommonConfig.load_from_json()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker"><code class="docutils literal notranslate"><span class="pre">BaseCracker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.__init__"><code class="docutils literal notranslate"><span class="pre">BaseCracker.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.connect"><code class="docutils literal notranslate"><span class="pre">BaseCracker.connect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.disconnect"><code class="docutils literal notranslate"><span class="pre">BaseCracker.disconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.dump_config"><code class="docutils literal notranslate"><span class="pre">BaseCracker.dump_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.get_address"><code class="docutils literal notranslate"><span class="pre">BaseCracker.get_address()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.get_connection_status"><code class="docutils literal notranslate"><span class="pre">BaseCracker.get_connection_status()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.get_current_config"><code class="docutils literal notranslate"><span class="pre">BaseCracker.get_current_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.get_default_config"><code class="docutils literal notranslate"><span class="pre">BaseCracker.get_default_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.get_uri"><code class="docutils literal notranslate"><span class="pre">BaseCracker.get_uri()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.load_config_from_file"><code class="docutils literal notranslate"><span class="pre">BaseCracker.load_config_from_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.load_config_from_str"><code class="docutils literal notranslate"><span class="pre">BaseCracker.load_config_from_str()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.reconnect"><code class="docutils literal notranslate"><span class="pre">BaseCracker.reconnect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.send_and_receive"><code class="docutils literal notranslate"><span class="pre">BaseCracker.send_and_receive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.send_with_command"><code class="docutils literal notranslate"><span class="pre">BaseCracker.send_with_command()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.set_address"><code class="docutils literal notranslate"><span class="pre">BaseCracker.set_address()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.set_ip_port"><code class="docutils literal notranslate"><span class="pre">BaseCracker.set_ip_port()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.set_uri"><code class="docutils literal notranslate"><span class="pre">BaseCracker.set_uri()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker.sync_config_to_cracker"><code class="docutils literal notranslate"><span class="pre">BaseCracker.sync_config_to_cracker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker"><code class="docutils literal notranslate"><span class="pre">CommonCracker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_can_data"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_can_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_can_freq"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_can_freq()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_can_timeout"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_can_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_i2c_data"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_i2c_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_i2c_freq"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_i2c_freq()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_i2c_timeout"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_i2c_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_read_register"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_read_register()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_baud"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_serial_baud()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_data"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_serial_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_odd_eve"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_serial_odd_eve()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_stop"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_serial_stop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_width"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_serial_width()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_cpha"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_spi_cpha()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_cpol"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_spi_cpol()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_data_len"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_spi_data_len()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_freq"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_spi_freq()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_timeout"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_spi_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.cracker_write_register"><code class="docutils literal notranslate"><span class="pre">CommonCracker.cracker_write_register()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.get_id"><code class="docutils literal notranslate"><span class="pre">CommonCracker.get_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.get_name"><code class="docutils literal notranslate"><span class="pre">CommonCracker.get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.get_version"><code class="docutils literal notranslate"><span class="pre">CommonCracker.get_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.i2c_receive"><code class="docutils literal notranslate"><span class="pre">CommonCracker.i2c_receive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.i2c_transceive"><code class="docutils literal notranslate"><span class="pre">CommonCracker.i2c_transceive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.i2c_transmit"><code class="docutils literal notranslate"><span class="pre">CommonCracker.i2c_transmit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.i2c_transmit_delay_receive"><code class="docutils literal notranslate"><span class="pre">CommonCracker.i2c_transmit_delay_receive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_clock"><code class="docutils literal notranslate"><span class="pre">CommonCracker.nut_set_clock()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_enable"><code class="docutils literal notranslate"><span class="pre">CommonCracker.nut_set_enable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_interface"><code class="docutils literal notranslate"><span class="pre">CommonCracker.nut_set_interface()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_timeout"><code class="docutils literal notranslate"><span class="pre">CommonCracker.nut_set_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_voltage"><code class="docutils literal notranslate"><span class="pre">CommonCracker.nut_set_voltage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_voltage_raw"><code class="docutils literal notranslate"><span class="pre">CommonCracker.nut_set_voltage_raw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_force"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_force()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_get_analog_wave"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_get_analog_wave()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_get_digital_wave"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_get_digital_wave()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_is_triggered"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_is_triggered()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_bias_voltage"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_bias_voltage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_channel_enable"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_channel_enable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_coupling"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_coupling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_gain"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_gain()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_gain_raw"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_gain_raw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_trigger_source"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_trigger_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_trigger_voltage"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_trigger_voltage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_voltage"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_analog_voltage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_clock_base_freq_mul_div"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_clock_base_freq_mul_div()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_clock_simple"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_clock_simple()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_clock_update"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_clock_update()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_digital_channel_enable"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_digital_channel_enable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_digital_trigger_source"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_digital_trigger_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_digital_voltage"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_digital_voltage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_delay"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_sample_delay()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_divisor"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_sample_divisor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_len"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_sample_len()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_phase"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_sample_phase()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_rate"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_sample_rate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_edge"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_trigger_edge()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_edge_level"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_trigger_edge_level()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_mode"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_set_trigger_mode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.osc_single"><code class="docutils literal notranslate"><span class="pre">CommonCracker.osc_single()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.set_clock_nut_divisor"><code class="docutils literal notranslate"><span class="pre">CommonCracker.set_clock_nut_divisor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.spi_receive"><code class="docutils literal notranslate"><span class="pre">CommonCracker.spi_receive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.spi_transceive"><code class="docutils literal notranslate"><span class="pre">CommonCracker.spi_transceive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.spi_transmit"><code class="docutils literal notranslate"><span class="pre">CommonCracker.spi_transmit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker.spi_transmit_delay_receive"><code class="docutils literal notranslate"><span class="pre">CommonCracker.spi_transmit_delay_receive()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cracknuts.cracker.cracker_s1.CrackerS1Config"><code class="docutils literal notranslate"><span class="pre">CrackerS1Config</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker_s1.CrackerS1Config.__init__"><code class="docutils literal notranslate"><span class="pre">CrackerS1Config.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cracknuts.cracker.cracker_s1.CrackerS1"><code class="docutils literal notranslate"><span class="pre">CrackerS1</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cracknuts.cracker.cracker_s1.CrackerS1.get_default_config"><code class="docutils literal notranslate"><span class="pre">CrackerS1.get_default_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="acquisition.html">Acquisition</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CrackNuts</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Cracker</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/cracker.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cracker">
+<h1>Cracker<a class="headerlink" href="#cracker" title="Link to this heading"></a></h1>
+<p><cite>Cracker</cite> 模块包含了所有对设备的操作，包括设备配置、数据下发采集等。</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cracknuts.cracker.cracker.</span></span><span class="sig-name descname"><span class="pre">CommonCommands</span></span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCommands"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>通用指令代理配置类，定义了通用设备的 <cite>CNP</cite> 通讯代码。详情参考 <cite>CNP</cite> 协议说明。</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_CAN_FREQ">
+<span class="sig-name descname"><span class="pre">CRACKER_CAN_FREQ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">592</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_CAN_FREQ" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_CAN_TIMEOUT">
+<span class="sig-name descname"><span class="pre">CRACKER_CAN_TIMEOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">596</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_CAN_TIMEOUT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_CA_DATA">
+<span class="sig-name descname"><span class="pre">CRACKER_CA_DATA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">602</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_CA_DATA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_FREQ">
+<span class="sig-name descname"><span class="pre">CRACKER_I2C_FREQ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">576</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_FREQ" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_TIMEOUT">
+<span class="sig-name descname"><span class="pre">CRACKER_I2C_TIMEOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">580</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_TIMEOUT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_TRANSCEIVE">
+<span class="sig-name descname"><span class="pre">CRACKER_I2C_TRANSCEIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">586</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_I2C_TRANSCEIVE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_READ_REGISTER">
+<span class="sig-name descname"><span class="pre">CRACKER_READ_REGISTER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_READ_REGISTER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_BAUD">
+<span class="sig-name descname"><span class="pre">CRACKER_SERIAL_BAUD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">544</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_BAUD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_DATA">
+<span class="sig-name descname"><span class="pre">CRACKER_SERIAL_DATA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">554</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_DATA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_ODD_EVE">
+<span class="sig-name descname"><span class="pre">CRACKER_SERIAL_ODD_EVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">547</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_ODD_EVE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_STOP">
+<span class="sig-name descname"><span class="pre">CRACKER_SERIAL_STOP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">546</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_STOP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_WIDTH">
+<span class="sig-name descname"><span class="pre">CRACKER_SERIAL_WIDTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">545</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SERIAL_WIDTH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_CPHA">
+<span class="sig-name descname"><span class="pre">CRACKER_SPI_CPHA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">561</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_CPHA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_CPOL">
+<span class="sig-name descname"><span class="pre">CRACKER_SPI_CPOL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">560</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_CPOL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_DATA">
+<span class="sig-name descname"><span class="pre">CRACKER_SPI_DATA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">570</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_DATA" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_DATA_LEN">
+<span class="sig-name descname"><span class="pre">CRACKER_SPI_DATA_LEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">562</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_DATA_LEN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_FREQ">
+<span class="sig-name descname"><span class="pre">CRACKER_SPI_FREQ</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">563</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_FREQ" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_TIMEOUT">
+<span class="sig-name descname"><span class="pre">CRACKER_SPI_TIMEOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">564</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_SPI_TIMEOUT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.CRACKER_WRITE_REGISTER">
+<span class="sig-name descname"><span class="pre">CRACKER_WRITE_REGISTER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.CRACKER_WRITE_REGISTER" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.GET_ID">
+<span class="sig-name descname"><span class="pre">GET_ID</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.GET_ID" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.GET_NAME">
+<span class="sig-name descname"><span class="pre">GET_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.GET_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.GET_VERSION">
+<span class="sig-name descname"><span class="pre">GET_VERSION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.GET_VERSION" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.NUT_CLOCK">
+<span class="sig-name descname"><span class="pre">NUT_CLOCK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">514</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.NUT_CLOCK" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.NUT_ENABLE">
+<span class="sig-name descname"><span class="pre">NUT_ENABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">512</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.NUT_ENABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.NUT_INTERFACE">
+<span class="sig-name descname"><span class="pre">NUT_INTERFACE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">528</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.NUT_INTERFACE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.NUT_TIMEOUT">
+<span class="sig-name descname"><span class="pre">NUT_TIMEOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">548</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.NUT_TIMEOUT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.NUT_VOLTAGE">
+<span class="sig-name descname"><span class="pre">NUT_VOLTAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">513</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.NUT_VOLTAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.NUT_VOLTAGE_RAW">
+<span class="sig-name descname"><span class="pre">NUT_VOLTAGE_RAW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">515</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.NUT_VOLTAGE_RAW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_BIAS_VOLTAGE">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_BIAS_VOLTAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">259</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_BIAS_VOLTAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_CHANNEL_ENABLE">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_CHANNEL_ENABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">256</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_CHANNEL_ENABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_COUPLING">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_COUPLING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">257</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_COUPLING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_GAIN">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_GAIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">260</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_GAIN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_GAIN_RAW">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_GAIN_RAW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">261</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_GAIN_RAW" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_TRIGGER_SOURCE">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_TRIGGER_SOURCE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">336</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_TRIGGER_SOURCE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_TRIGGER_VOLTAGE">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_TRIGGER_VOLTAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">291</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_TRIGGER_VOLTAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_VOLTAGE">
+<span class="sig-name descname"><span class="pre">OSC_ANALOG_VOLTAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">258</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_ANALOG_VOLTAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_BASE_FREQ_MUL_DIV">
+<span class="sig-name descname"><span class="pre">OSC_CLOCK_BASE_FREQ_MUL_DIV</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">262</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_BASE_FREQ_MUL_DIV" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_NUT_DIVISOR">
+<span class="sig-name descname"><span class="pre">OSC_CLOCK_NUT_DIVISOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">265</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_NUT_DIVISOR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SAMPLE_DIVISOR">
+<span class="sig-name descname"><span class="pre">OSC_CLOCK_SAMPLE_DIVISOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">263</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SAMPLE_DIVISOR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SAMPLE_PHASE">
+<span class="sig-name descname"><span class="pre">OSC_CLOCK_SAMPLE_PHASE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">264</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SAMPLE_PHASE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SIMPLE">
+<span class="sig-name descname"><span class="pre">OSC_CLOCK_SIMPLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">267</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_SIMPLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_UPDATE">
+<span class="sig-name descname"><span class="pre">OSC_CLOCK_UPDATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">266</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_CLOCK_UPDATE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_CHANNEL_ENABLE">
+<span class="sig-name descname"><span class="pre">OSC_DIGITAL_CHANNEL_ENABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">272</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_CHANNEL_ENABLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_TRIGGER_SOURCE">
+<span class="sig-name descname"><span class="pre">OSC_DIGITAL_TRIGGER_SOURCE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">290</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_TRIGGER_SOURCE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_VOLTAGE">
+<span class="sig-name descname"><span class="pre">OSC_DIGITAL_VOLTAGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">273</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_DIGITAL_VOLTAGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_FORCE">
+<span class="sig-name descname"><span class="pre">OSC_FORCE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">297</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_FORCE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_GET_ANALOG_WAVES">
+<span class="sig-name descname"><span class="pre">OSC_GET_ANALOG_WAVES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">304</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_GET_ANALOG_WAVES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_GET_DIGITAL_WAVES">
+<span class="sig-name descname"><span class="pre">OSC_GET_DIGITAL_WAVES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">304</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_GET_DIGITAL_WAVES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_IS_TRIGGERED">
+<span class="sig-name descname"><span class="pre">OSC_IS_TRIGGERED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">295</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_IS_TRIGGERED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_DELAY">
+<span class="sig-name descname"><span class="pre">OSC_SAMPLE_DELAY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">292</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_DELAY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_LENGTH">
+<span class="sig-name descname"><span class="pre">OSC_SAMPLE_LENGTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">293</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_LENGTH" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_RATE">
+<span class="sig-name descname"><span class="pre">OSC_SAMPLE_RATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">296</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SAMPLE_RATE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_SINGLE">
+<span class="sig-name descname"><span class="pre">OSC_SINGLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">294</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_SINGLE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_EDGE">
+<span class="sig-name descname"><span class="pre">OSC_TRIGGER_EDGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">338</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_EDGE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_EDGE_LEVEL">
+<span class="sig-name descname"><span class="pre">OSC_TRIGGER_EDGE_LEVEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">339</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_EDGE_LEVEL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_MODE">
+<span class="sig-name descname"><span class="pre">OSC_TRIGGER_MODE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">337</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.OSC_TRIGGER_MODE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCommands.SPI_TRANSCEIVE">
+<span class="sig-name descname"><span class="pre">SPI_TRANSCEIVE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">572</span></em><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCommands.SPI_TRANSCEIVE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cracknuts.cracker.cracker.</span></span><span class="sig-name descname"><span class="pre">CommonConfig</span></span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonConfig"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonConfig" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonConfig.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonConfig.__init__"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonConfig.__init__" title="Link to this definition"></a></dt>
+<dd><p>通用配置对象，包含通用设备的各个配置项目，如果设备有非通用配置，需要继承该类并扩展。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonConfig.bind">
+<span class="sig-name descname"><span class="pre">bind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonConfig.bind"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonConfig.bind" title="Link to this definition"></a></dt>
+<dd><p>Bind a callback which will be call when the key field is updated. The end user should use this.</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) -- a filed name of class <cite>CommonConfig</cite></p></li>
+<li><p><strong>callback</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></span>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonConfig.dump_to_json">
+<span class="sig-name descname"><span class="pre">dump_to_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonConfig.dump_to_json"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonConfig.dump_to_json" title="Link to this definition"></a></dt>
+<dd><p>到处配置到 JSON 字符串</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonConfig.load_from_json">
+<span class="sig-name descname"><span class="pre">load_from_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonConfig.load_from_json"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonConfig.load_from_json" title="Link to this definition"></a></dt>
+<dd><p>从 JSON 字符串加载配置文件。如果字符串是空则加载默认配置文件</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig" title="cracknuts.cracker.cracker.CommonConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommonConfig</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cracknuts.cracker.cracker.</span></span><span class="sig-name descname"><span class="pre">BaseCracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_server_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_bitstream_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker" title="Link to this definition"></a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>基础设备类，提供 <cite>CNP</cite> 协议支持、配置管理、固件维护等基础操作。</p>
+<p>对于固件更新，在 <cite>Cracker</cite> 架构中，上位机在每次连接设备时都会尝试更新以下目录中的最新的固件文件：</p>
+<ul class="simple">
+<li><p>当前安装包所携带：&lt;site-packages&gt;/cracknuts/bin</p></li>
+<li><p>用户目录: ~/.cracknuts/bin</p></li>
+<li><p>工作目录：&lt;work-directory&gt;/.bin</p></li>
+</ul>
+<p>用户可以通过更新`cracknuts`方式获取最新的固件，获取到官网下载最新固件后放置到工作目录或用户目录下即可。</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_server_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_bitstream_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.__init__"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<em>str</em><em> | </em><em>tuple</em><em> | </em><em>None</em>) -- Cracker设备地址：(ip, port) 或者 &quot;cnp://&lt;ip&gt;:&lt;port&gt;&quot; 格式，如果这里没有配置，后续则需要调用`set_address`, <cite>set_ip_port</cite>, 或者 <a href="#id1"><span class="problematic" id="id2">`</span></a>set_uri`进行配置。</p></li>
+<li><p><strong>bin_server_path</strong> (<em>str</em><em> | </em><em>None</em>) -- 需要更新的 bin_server（固件）文件，一般无需用户配置。</p></li>
+<li><p><strong>bin_bitstream_path</strong> (<em>str</em><em> | </em><em>None</em>) -- 需要更新的 bin_bitstream（固件）文件，一般无需用户配置。</p></li>
+<li><p><strong>operator_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) -- operator 端口</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_update_bin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_server_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_bitstream_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.connect"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.connect" title="Link to this definition"></a></dt>
+<dd><p>连接到cracker设备</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>update_bin</strong> (<em>bool</em>) -- 是否更新固件</p></li>
+<li><p><strong>force_update_bin</strong> (<em>bool</em>) -- 在设备正常运行时是否强制更新固件（默认情况下，设备正常运行情况下固件不进行更新）</p></li>
+<li><p><strong>bin_server_path</strong> (<em>str</em><em> | </em><em>None</em>) -- 需要更新的 bin_server（固件）文件</p></li>
+<li><p><strong>bin_bitstream_path</strong> (<em>str</em><em> | </em><em>None</em>) -- 需要更新的 bin_bitstream（固件）文件</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.disconnect"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.disconnect" title="Link to this definition"></a></dt>
+<dd><p>断开连接</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.dump_config">
+<span class="sig-name descname"><span class="pre">dump_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.dump_config"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.dump_config" title="Link to this definition"></a></dt>
+<dd><p>导出当前配置，如果指定了path则导出JSON文件，否则导出json字符串。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em><em> | </em><em>None</em>) -- JSON文件路径</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>在path没有配置的抢矿下返回配置文件的JSON字符串，否则返回None。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.get_address">
+<span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.get_address"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.get_address" title="Link to this definition"></a></dt>
+<dd><p>获取设备元组形式的地址</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>元组形式的地址：(ip, port)。</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[str, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.get_connection_status">
+<span class="sig-name descname"><span class="pre">get_connection_status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.get_connection_status"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.get_connection_status" title="Link to this definition"></a></dt>
+<dd><p>获取连接状态</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True：已连接，False：未连接。</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.get_current_config">
+<span class="sig-name descname"><span class="pre">get_current_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.get_current_config"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.get_current_config" title="Link to this definition"></a></dt>
+<dd><p>Get current configuration of <cite>Cracker</cite>.
+Note: Currently, the configuration returned is recorded on the host computer,
+not the ACTUAL configuration of the device. In the future, it should be
+synchronized from the device to the host computer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Cracker的当前配置信息</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig" title="cracknuts.cracker.cracker.CommonConfig">CommonConfig</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.get_default_config">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.get_default_config"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.get_default_config" title="Link to this definition"></a></dt>
+<dd><p>获取默认配置。因为不同设备有不同的默认之，该方法需要具体的设备子类实现。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>默认配置对象（CommonConfig 的具体实现类）</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig" title="cracknuts.cracker.cracker.CommonConfig">CommonConfig</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.get_uri">
+<span class="sig-name descname"><span class="pre">get_uri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.get_uri"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.get_uri" title="Link to this definition"></a></dt>
+<dd><p>获取URI格式的设备地址</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>URI地址，如果 Cracker 地址没有指定则返回空。</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p>str | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.load_config_from_file">
+<span class="sig-name descname"><span class="pre">load_config_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.load_config_from_file"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.load_config_from_file" title="Link to this definition"></a></dt>
+<dd><p>从JSON文件中加载配置。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) -- JSON文件路径</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.load_config_from_str">
+<span class="sig-name descname"><span class="pre">load_config_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.load_config_from_str"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.load_config_from_str" title="Link to this definition"></a></dt>
+<dd><p>从JSON字符串中加载配置。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_str</strong> (<em>str</em>) -- JSON字符串</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.reconnect">
+<span class="sig-name descname"><span class="pre">reconnect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.reconnect"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.reconnect" title="Link to this definition"></a></dt>
+<dd><p>重新连接</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.send_and_receive">
+<span class="sig-name descname"><span class="pre">send_and_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.send_and_receive"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.send_and_receive" title="Link to this definition"></a></dt>
+<dd><p>发送消息到设备。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>bytes</em>) -- 待发送的消息</p>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>接收的消息，格式：(status, message)。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, bytes | None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.send_with_command">
+<span class="sig-name descname"><span class="pre">send_with_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rfu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.send_with_command"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.send_with_command" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.set_address">
+<span class="sig-name descname"><span class="pre">set_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.set_address"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.set_address" title="Link to this definition"></a></dt>
+<dd><p>设置元组格式的地址</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>address</strong> (<em>tuple</em><em>[</em><em>str</em><em>, </em><em>int</em><em>]</em>) -- 元组形式的地址：(ip, port)。</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.set_ip_port">
+<span class="sig-name descname"><span class="pre">set_ip_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.set_ip_port"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.set_ip_port" title="Link to this definition"></a></dt>
+<dd><p>设置设备IP地址</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip</strong> (<em>str</em>) -- IP地址</p></li>
+<li><p><strong>port</strong> (<em>int</em>) -- 端口</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.set_uri">
+<span class="sig-name descname"><span class="pre">set_uri</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.set_uri"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.set_uri" title="Link to this definition"></a></dt>
+<dd><p>设置URI格式的地址</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uri</strong> (<em>str</em>) -- URI.</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.BaseCracker.sync_config_to_cracker">
+<span class="sig-name descname"><span class="pre">sync_config_to_cracker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#BaseCracker.sync_config_to_cracker"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.BaseCracker.sync_config_to_cracker" title="Link to this definition"></a></dt>
+<dd><p>同步配置到Cracker</p>
+<p>为了防止上位机与设备间的配置信息不同步，在获取数据前用户需要调用该方法同步配置到设备。</p>
+<p>注意：这个方法暂时无用，后期功能完整后再开启。</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cracknuts.cracker.cracker.</span></span><span class="sig-name descname"><span class="pre">CommonCracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_server_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_bitstream_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#cracknuts.cracker.cracker.BaseCracker" title="cracknuts.cracker.cracker.BaseCracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCracker</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_can_data">
+<span class="sig-name descname"><span class="pre">cracker_can_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expect_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_can_data"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_can_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_can_freq">
+<span class="sig-name descname"><span class="pre">cracker_can_freq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_can_freq"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_can_freq" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_can_timeout">
+<span class="sig-name descname"><span class="pre">cracker_can_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_can_timeout"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_can_timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_i2c_data">
+<span class="sig-name descname"><span class="pre">cracker_i2c_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expect_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_i2c_data"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_i2c_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_i2c_freq">
+<span class="sig-name descname"><span class="pre">cracker_i2c_freq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_i2c_freq"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_i2c_freq" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_i2c_timeout">
+<span class="sig-name descname"><span class="pre">cracker_i2c_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_i2c_timeout"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_i2c_timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_read_register">
+<span class="sig-name descname"><span class="pre">cracker_read_register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_read_register"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_read_register" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_serial_baud">
+<span class="sig-name descname"><span class="pre">cracker_serial_baud</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">baud</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_serial_baud"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_baud" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_serial_data">
+<span class="sig-name descname"><span class="pre">cracker_serial_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expect_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_serial_data"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_serial_odd_eve">
+<span class="sig-name descname"><span class="pre">cracker_serial_odd_eve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">odd_eve</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_serial_odd_eve"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_odd_eve" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_serial_stop">
+<span class="sig-name descname"><span class="pre">cracker_serial_stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stop</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_serial_stop"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_stop" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_serial_width">
+<span class="sig-name descname"><span class="pre">cracker_serial_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_serial_width"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_serial_width" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_spi_cpha">
+<span class="sig-name descname"><span class="pre">cracker_spi_cpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_spi_cpha"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_cpha" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_spi_cpol">
+<span class="sig-name descname"><span class="pre">cracker_spi_cpol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cpol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_spi_cpol"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_cpol" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_spi_data_len">
+<span class="sig-name descname"><span class="pre">cracker_spi_data_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_spi_data_len"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_data_len" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_spi_freq">
+<span class="sig-name descname"><span class="pre">cracker_spi_freq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">freq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_spi_freq"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_freq" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_spi_timeout">
+<span class="sig-name descname"><span class="pre">cracker_spi_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_spi_timeout"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_spi_timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.cracker_write_register">
+<span class="sig-name descname"><span class="pre">cracker_write_register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base_address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.cracker_write_register"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.cracker_write_register" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.get_id">
+<span class="sig-name descname"><span class="pre">get_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.get_id"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.get_id" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.get_name">
+<span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.get_name"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.get_name" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.get_version"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.get_version" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.i2c_receive">
+<span class="sig-name descname"><span class="pre">i2c_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.i2c_receive"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.i2c_receive" title="Link to this definition"></a></dt>
+<dd><p>通过I2C协议接收数据</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> (<em>str</em><em> | </em><em>int</em>) -- I2C设备地址，7-bit长度</p></li>
+<li><p><strong>rx_count</strong> (<em>int</em>) -- 接收数据的长度</p></li>
+<li><p><strong>is_trigger</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>通过I2C接收到的数据，如果出现异常则返回None。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.i2c_transceive">
+<span class="sig-name descname"><span class="pre">i2c_transceive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.i2c_transceive"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.i2c_transceive" title="Link to this definition"></a></dt>
+<dd><p>没有延迟的通过I2C发送接收数据</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> (<em>str</em><em> | </em><em>int</em>) -- I2C设备地址，7-bit长度</p></li>
+<li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) -- 待发送的数据</p></li>
+<li><p><strong>rx_count</strong> (<em>int</em>) -- 接收数据的长度</p></li>
+<li><p><strong>is_trigger</strong> (<em>bool</em>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>通过I2C接收到的数据，如果出现异常则返回None。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.i2c_transmit">
+<span class="sig-name descname"><span class="pre">i2c_transmit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.i2c_transmit"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.i2c_transmit" title="Link to this definition"></a></dt>
+<dd><p>通过I2C协议发送数据</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> (<em>str</em><em> | </em><em>int</em>) -- I2C设备地址，7-bit长度</p></li>
+<li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) -- 待发送的数据</p></li>
+<li><p><strong>is_trigger</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.i2c_transmit_delay_receive">
+<span class="sig-name descname"><span class="pre">i2c_transmit_delay_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.i2c_transmit_delay_receive"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.i2c_transmit_delay_receive" title="Link to this definition"></a></dt>
+<dd><p>有延迟的通过I2C发送和接收数据</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>addr</strong> (<em>str</em><em> | </em><em>int</em>) -- I2C设备地址，7-bit长度</p></li>
+<li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) -- 待发送的数据</p></li>
+<li><p><strong>delay</strong> (<em>int</em>) -- 传输延迟，单位：纳秒，最小有效值：10纳秒。</p></li>
+<li><p><strong>rx_count</strong> (<em>int</em>) -- 接收数据的长度</p></li>
+<li><p><strong>is_trigger</strong> (<em>bool</em>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>通过I2C接收到的数据，如果出现异常则返回None。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.nut_set_clock">
+<span class="sig-name descname"><span class="pre">nut_set_clock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">clock</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.nut_set_clock"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_clock" title="Link to this definition"></a></dt>
+<dd><p>设置NUT时钟。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>clock</strong> (<em>int</em>) -- 时钟：单位 kHz</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.nut_set_enable">
+<span class="sig-name descname"><span class="pre">nut_set_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.nut_set_enable"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_enable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.nut_set_interface">
+<span class="sig-name descname"><span class="pre">nut_set_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.nut_set_interface"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_interface" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.nut_set_timeout">
+<span class="sig-name descname"><span class="pre">nut_set_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.nut_set_timeout"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_timeout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.nut_set_voltage">
+<span class="sig-name descname"><span class="pre">nut_set_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.nut_set_voltage"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_voltage" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.nut_set_voltage_raw">
+<span class="sig-name descname"><span class="pre">nut_set_voltage_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.nut_set_voltage_raw"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.nut_set_voltage_raw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_force">
+<span class="sig-name descname"><span class="pre">osc_force</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_force"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_force" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_get_analog_wave">
+<span class="sig-name descname"><span class="pre">osc_get_analog_wave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_get_analog_wave"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_get_analog_wave" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_get_digital_wave">
+<span class="sig-name descname"><span class="pre">osc_get_digital_wave</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_count</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_get_digital_wave"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_get_digital_wave" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_is_triggered">
+<span class="sig-name descname"><span class="pre">osc_is_triggered</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_is_triggered"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_is_triggered" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_bias_voltage">
+<span class="sig-name descname"><span class="pre">osc_set_analog_bias_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_bias_voltage"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_bias_voltage" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_channel_enable">
+<span class="sig-name descname"><span class="pre">osc_set_analog_channel_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_channel_enable"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_channel_enable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_coupling">
+<span class="sig-name descname"><span class="pre">osc_set_analog_coupling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coupling</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_coupling"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_coupling" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_gain">
+<span class="sig-name descname"><span class="pre">osc_set_analog_gain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_gain"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_gain" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_gain_raw">
+<span class="sig-name descname"><span class="pre">osc_set_analog_gain_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gain</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_gain_raw"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_gain_raw" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_trigger_source">
+<span class="sig-name descname"><span class="pre">osc_set_analog_trigger_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_trigger_source"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_trigger_source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_trigger_voltage">
+<span class="sig-name descname"><span class="pre">osc_set_analog_trigger_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_trigger_voltage"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_trigger_voltage" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_analog_voltage">
+<span class="sig-name descname"><span class="pre">osc_set_analog_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">voltage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_analog_voltage"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_analog_voltage" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_clock_base_freq_mul_div">
+<span class="sig-name descname"><span class="pre">osc_set_clock_base_freq_mul_div</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mult_int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult_fra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_clock_base_freq_mul_div"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_clock_base_freq_mul_div" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_clock_simple">
+<span class="sig-name descname"><span class="pre">osc_set_clock_simple</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nut_clk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mult</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_clock_simple"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_clock_simple" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_clock_update">
+<span class="sig-name descname"><span class="pre">osc_set_clock_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_clock_update"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_clock_update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_digital_channel_enable">
+<span class="sig-name descname"><span class="pre">osc_set_digital_channel_enable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_digital_channel_enable"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_digital_channel_enable" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_digital_trigger_source">
+<span class="sig-name descname"><span class="pre">osc_set_digital_trigger_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_digital_trigger_source"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_digital_trigger_source" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_digital_voltage">
+<span class="sig-name descname"><span class="pre">osc_set_digital_voltage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">voltage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_digital_voltage"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_digital_voltage" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_sample_delay">
+<span class="sig-name descname"><span class="pre">osc_set_sample_delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delay</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_sample_delay"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_delay" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_sample_divisor">
+<span class="sig-name descname"><span class="pre">osc_set_sample_divisor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">div_int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">div_frac</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_sample_divisor"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_divisor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_sample_len">
+<span class="sig-name descname"><span class="pre">osc_set_sample_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">length</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_sample_len"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_len" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_sample_phase">
+<span class="sig-name descname"><span class="pre">osc_set_sample_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phase</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_sample_phase"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_phase" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_sample_rate">
+<span class="sig-name descname"><span class="pre">osc_set_sample_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_sample_rate"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_sample_rate" title="Link to this definition"></a></dt>
+<dd><p>设置osc采样率</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rate</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>) -- The sample rate in kHz</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_edge">
+<span class="sig-name descname"><span class="pre">osc_set_trigger_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_trigger_edge"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_edge" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_edge_level">
+<span class="sig-name descname"><span class="pre">osc_set_trigger_edge_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">edge_level</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_trigger_edge_level"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_edge_level" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_mode">
+<span class="sig-name descname"><span class="pre">osc_set_trigger_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_set_trigger_mode"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_set_trigger_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.osc_single">
+<span class="sig-name descname"><span class="pre">osc_single</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.osc_single"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.osc_single" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.set_clock_nut_divisor">
+<span class="sig-name descname"><span class="pre">set_clock_nut_divisor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">div</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.set_clock_nut_divisor"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.set_clock_nut_divisor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.spi_receive">
+<span class="sig-name descname"><span class="pre">spi_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rx_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.spi_receive"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.spi_receive" title="Link to this definition"></a></dt>
+<dd><p>通过SPI协议接收数据</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rx_count</strong> (<em>int</em>) -- 接收数据的长度</p></li>
+<li><p><strong>is_trigger</strong> (<em>bool</em>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>通过SPI协议接收的数据，如果出现异常则返回空。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.spi_transceive">
+<span class="sig-name descname"><span class="pre">spi_transceive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.spi_transceive"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.spi_transceive" title="Link to this definition"></a></dt>
+<dd><p>没有延迟的通过SPI发送和接收数据。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) -- 待发送的数据。</p></li>
+<li><p><strong>rx_count</strong> (<em>int</em>) -- 接收数据的长度</p></li>
+<li><p><strong>is_trigger</strong> (<em>bool</em>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>通过SPI协议接收的数据，如果出现异常则返回空。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.spi_transmit">
+<span class="sig-name descname"><span class="pre">spi_transmit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.spi_transmit"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.spi_transmit" title="Link to this definition"></a></dt>
+<dd><p>通过SPI发送数据。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) -- 待发送的数据。</p></li>
+<li><p><strong>is_trigger</strong> (<em>bool</em>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker.CommonCracker.spi_transmit_delay_receive">
+<span class="sig-name descname"><span class="pre">spi_transmit_delay_receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_trigger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker.html#CommonCracker.spi_transmit_delay_receive"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker.CommonCracker.spi_transmit_delay_receive" title="Link to this definition"></a></dt>
+<dd><p>有延迟的通过SPI发送和接收数据。</p>
+<dl class="field-list simple">
+<dt class="field-odd">参数<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>str</em><em> | </em><em>bytes</em>) -- 待发送的数据。</p></li>
+<li><p><strong>delay</strong> (<em>int</em>) -- 发送数据延迟，单位：纳秒，最小有效值： 10纳秒</p></li>
+<li><p><strong>rx_count</strong> (<em>int</em>) -- 接收数据的长度</p></li>
+<li><p><strong>is_trigger</strong> (<em>bool</em>) -- 是否开启触发</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回<span class="colon">:</span></dt>
+<dd class="field-even"><p>通过SPI协议接收的数据，如果出现异常则返回空。</p>
+</dd>
+<dt class="field-odd">返回类型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bytes | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker_s1.CrackerS1Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cracknuts.cracker.cracker_s1.</span></span><span class="sig-name descname"><span class="pre">CrackerS1Config</span></span><a class="reference internal" href="_modules/cracknuts/cracker/cracker_s1.html#CrackerS1Config"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker_s1.CrackerS1Config" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig" title="cracknuts.cracker.cracker.CommonConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommonConfig</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker_s1.CrackerS1Config.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker_s1.html#CrackerS1Config.__init__"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker_s1.CrackerS1Config.__init__" title="Link to this definition"></a></dt>
+<dd><p>通用配置对象，包含通用设备的各个配置项目，如果设备有非通用配置，需要继承该类并扩展。</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker_s1.CrackerS1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cracknuts.cracker.cracker_s1.</span></span><span class="sig-name descname"><span class="pre">CrackerS1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_server_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_bitstream_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator_port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker_s1.html#CrackerS1"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker_s1.CrackerS1" title="Link to this definition"></a></dt>
+<dd><p>基类：<a class="reference internal" href="#cracknuts.cracker.cracker.CommonCracker" title="cracknuts.cracker.cracker.CommonCracker"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommonCracker</span></code></a>[<a class="reference internal" href="#cracknuts.cracker.cracker_s1.CrackerS1Config" title="cracknuts.cracker.cracker_s1.CrackerS1Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">CrackerS1Config</span></code></a>]</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cracknuts.cracker.cracker_s1.CrackerS1.get_default_config">
+<span class="sig-name descname"><span class="pre">get_default_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/cracker/cracker_s1.html#CrackerS1.get_default_config"><span class="viewcode-link"><span class="pre">[源代码]</span></span></a><a class="headerlink" href="#cracknuts.cracker.cracker_s1.CrackerS1.get_default_config" title="Link to this definition"></a></dt>
+<dd><p>获取默认配置。因为不同设备有不同的默认之，该方法需要具体的设备子类实现。</p>
+<dl class="field-list simple">
+<dt class="field-odd">返回<span class="colon">:</span></dt>
+<dd class="field-odd"><p>默认配置对象（CommonConfig 的具体实现类）</p>
+</dd>
+<dt class="field-even">返回类型<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#cracknuts.cracker.cracker.CommonConfig" title="cracknuts.cracker.cracker.CommonConfig">CommonConfig</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="index.html" class="btn btn-neutral float-left" title="CrackNuts API 文档" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="acquisition.html" class="btn btn-neutral float-right" title="Acquisition" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2024, CrackNuts。</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用的 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a> 开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

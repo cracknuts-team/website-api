@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=8e576371"></script>
+      <script src="_static/documentation_options.js?v=8fa8b3e9"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -73,16 +73,26 @@
              
   <section id="cracknuts-api-documentation">
 <h1>CrackNuts API Documentation<a class="headerlink" href="#cracknuts-api-documentation" title="Link to this heading"></a></h1>
-<p>CrackNuts Host software API document.</p>
+<p>CrackNuts is an integrated side-channel analysis framework that combines the collaborative work of hardware and software.
+The host application is developed in Python and optimized for the Jupyter environment,
+providing an intuitive user experience to enhance ease of use and efficiency.</p>
+<p>This document outlines the architecture, features, and API interfaces of the CrackNuts host application
+to help developers efficiently utilize the program for side-channel analysis.</p>
+<p>The <cite>CrackNuts</cite> host application abstracts two concepts: <cite>Cracker</cite> and <cite>Acquisition</cite>.
+The <cite>Cracker</cite> represents the devices within <cite>CrackNuts</cite>,
+used for operations such as device configuration, data transmission, and data collection.
+The <cite>Acquisition</cite> represents the execution flow in either test or run mode,
+which includes key processes such as device configuration, data transmission, and data collection.
+For detailed information, refer to :ref:acquisition.rst.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cracker.html">Cracker</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cracker.html#commoncommands">CommonCommands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cracker.html#commonconfig">CommonConfig</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cracker.html#basecracker">BaseCracker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cracker.html#commoncracker">CommonCracker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cracker.html#crackers1config">CrackerS1Config</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cracker.html#crackers1">CrackerS1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cracker.html#cracknuts.cracker.cracker.CommonCommands"><code class="docutils literal notranslate"><span class="pre">CommonCommands</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cracker.html#cracknuts.cracker.cracker.CommonConfig"><code class="docutils literal notranslate"><span class="pre">CommonConfig</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cracker.html#cracknuts.cracker.cracker.BaseCracker"><code class="docutils literal notranslate"><span class="pre">BaseCracker</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cracker.html#cracknuts.cracker.cracker.CommonCracker"><code class="docutils literal notranslate"><span class="pre">CommonCracker</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cracker.html#cracknuts.cracker.cracker_s1.CrackerS1Config"><code class="docutils literal notranslate"><span class="pre">CrackerS1Config</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="cracker.html#cracknuts.cracker.cracker_s1.CrackerS1"><code class="docutils literal notranslate"><span class="pre">CrackerS1</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="acquisition.html">Acquisition</a><ul>

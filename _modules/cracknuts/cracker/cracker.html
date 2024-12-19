@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=8e576371"></script>
+      <script src="../../../_static/documentation_options.js?v=8fa8b3e9"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -97,7 +97,9 @@
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.CommonCommands">[docs]</a>
 <span class="k">class</span> <span class="nc">CommonCommands</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Protocol commands.</span>
+<span class="sd">    The generic command proxy configuration class defines the `CNP` communication code for general devices.</span>
+<span class="sd">    For details, refer to the `CNP` protocol documentation.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">GET_ID</span> <span class="o">=</span> <span class="mh">0x0001</span>
@@ -181,9 +183,13 @@
 <div class="viewcode-block" id="CommonConfig">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.CommonConfig">[docs]</a>
 <span class="k">class</span> <span class="nc">CommonConfig</span><span class="p">:</span>
+<div class="viewcode-block" id="CommonConfig.__init__">
+<a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.CommonConfig.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        For specific devices, users need to set default values and extend configuration items by inheriting this class.</span>
+<span class="sd">        The generic configuration object contains various configuration items for general devices.</span>
+<span class="sd">        If a device has non-generic configurations, the class should be inherited and extended.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_binder</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -215,7 +221,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">nut_voltage_raw</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nut_clock</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nut_interface</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nut_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nut_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
 
     <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
@@ -226,8 +233,9 @@
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.CommonConfig.bind">[docs]</a>
     <span class="k">def</span> <span class="nf">bind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">callback</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Bind a callback which will be call when the key field is updated.</span>
-<span class="sd">        :param key: a filed name of class `Config`</span>
+<span class="sd">        Bind a callback which will be call when the key field is updated. The end user should use this.</span>
+
+<span class="sd">        :param key: a filed name of class `CommonConfig`</span>
 <span class="sd">        :param callback:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -260,12 +268,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span>
-                    <span class="s2">&quot;osc_analog_channel_enable&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;osc_analog_coupling&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;osc_analog_voltage&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;osc_analog_bias_voltage&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;osc_analog_gain&quot;</span><span class="p">,</span>
-                    <span class="s2">&quot;osc_analog_gain_raw&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;osc_analog_channel_enable&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;osc_analog_coupling&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;osc_analog_voltage&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;osc_analog_bias_voltage&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;osc_analog_gain&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;osc_analog_gain_raw&quot;</span><span class="p">,</span>
             <span class="p">):</span>
                 <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">_k</span><span class="p">):</span> <span class="n">_v</span> <span class="k">for</span> <span class="n">_k</span><span class="p">,</span> <span class="n">_v</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
             <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -281,17 +289,41 @@
 <div class="viewcode-block" id="BaseCracker">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker">[docs]</a>
 <span class="k">class</span> <span class="nc">BaseCracker</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cnp protocol supported Cracker&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The basic device class, provides support for the `CNP` protocol, configuration management, firmware maintenance,</span>
+<span class="sd">    and other basic operations.</span>
 
+<span class="sd">    For firmware updates, in the `Cracker` architecture, the host computer will attempt to update the latest firmware</span>
+<span class="sd">    files from the following directories each time it connects to the device:</span>
+
+<span class="sd">    - The directory carried by the current package: &lt;site-packages&gt;/cracknuts/bin</span>
+<span class="sd">    - The user directory: ~/.cracknuts/bin</span>
+<span class="sd">    - The working directory: &lt;work-directory&gt;/.bin</span>
+
+<span class="sd">    Users can obtain the latest firmware by updating `cracknuts`. After downloading the latest firmware from the</span>
+<span class="sd">    official website, simply place it in the working directory or user directory.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseCracker.__init__">
+<a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">address</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">operator_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">address</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">operator_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param address: Cracker device address (ip, port) or &quot;cnp://xxx:xx&quot;</span>
+<span class="sd">        :param address: Cracker device address (ip, port) or &quot;[cnp://]&lt;ip&gt;[:port]&quot;,</span>
+<span class="sd">                        If no configuration is provided here,</span>
+<span class="sd">                        it needs to be configured later by calling `set_address`, `set_ip_port`, or `set_uri`.</span>
+<span class="sd">        :type address: str | tuple | None</span>
+<span class="sd">        :param bin_server_path: The bin_server (firmware) file for updates; normally, the user should not specify this.</span>
+<span class="sd">        :type bin_server_path: str | None</span>
+<span class="sd">        :param bin_bitstream_path: The bin_bitstream (firmware) file for updates; normally, the user should not specify this.</span>
+<span class="sd">        :type bin_bitstream_path: str | None</span>
+<span class="sd">        :param operator_port: The operator port to connect to.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_command_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
@@ -302,11 +334,19 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span> <span class="o">=</span> <span class="n">operator_port</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_address</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_config</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="BaseCracker.set_address">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.set_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">set_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the device address in tuple format.</span>
+
+<span class="sd">        :param address: address in tuple format: (ip, port).</span>
+<span class="sd">        :type address: tuple[str, int]</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span> <span class="o">=</span> <span class="n">address</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -315,19 +355,41 @@
 
 <div class="viewcode-block" id="BaseCracker.get_address">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.get_address">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_address</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the device address in tuple format.</span>
+
+<span class="sd">        :return: address in tuple format: (ip, port).</span>
+<span class="sd">        :rtype: tuple[str, int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span></div>
 
 
 <div class="viewcode-block" id="BaseCracker.set_ip_port">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.set_ip_port">[docs]</a>
     <span class="k">def</span> <span class="nf">set_ip_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the device IP address.</span>
+
+<span class="sd">        :param ip: IP address.</span>
+<span class="sd">        :type ip: str</span>
+<span class="sd">        :param port: Port.</span>
+<span class="sd">        :type port: int</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span> <span class="o">=</span> <span class="n">ip</span><span class="p">,</span> <span class="n">port</span></div>
 
 
 <div class="viewcode-block" id="BaseCracker.set_uri">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.set_uri">[docs]</a>
     <span class="k">def</span> <span class="nf">set_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the device address in URI format.</span>
+
+<span class="sd">        :param uri: URI.</span>
+<span class="sd">        :type uri: str</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">uri</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;cnp://&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">uri</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;cnp://&quot;</span> <span class="o">+</span> <span class="n">uri</span>
 
@@ -342,7 +404,13 @@
 
 <div class="viewcode-block" id="BaseCracker.get_uri">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.get_uri">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the device address in URI format.</span>
+
+<span class="sd">        :return: URI. if cracker address is not specified, None is returned.</span>
+<span class="sd">        :rtype: str | None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
@@ -355,14 +423,25 @@
 <div class="viewcode-block" id="BaseCracker.connect">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.connect">[docs]</a>
     <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">update_bin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="n">force_update_bin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">update_bin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">force_update_bin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Connect to Cracker device.</span>
+<span class="sd">        Connect to cracker device.</span>
+
+<span class="sd">        :param update_bin: Whether to update the firmware.</span>
+<span class="sd">        :type update_bin: bool</span>
+<span class="sd">        :param force_update_bin: Whether to force update the firmware while the device is running normally</span>
+<span class="sd">                          (by default, firmware updates are not performed when the device is running normally).</span>
+<span class="sd">        :type force_update_bin: bool</span>
+<span class="sd">        :param bin_server_path: The bin_server (firmware) file for updates.</span>
+<span class="sd">        :type bin_server_path: str | None</span>
+<span class="sd">        :param bin_bitstream_path: The bin_bitstream (firmware) file for updates.</span>
+<span class="sd">        :type bin_bitstream_path: str | None</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">bin_server_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">bin_server_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bin_server_path</span>
@@ -370,7 +449,7 @@
             <span class="n">bin_bitstream_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bin_bitstream_path</span>
 
         <span class="k">if</span> <span class="n">update_bin</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_cracker_bin</span><span class="p">(</span>
-                <span class="n">force_update_bin</span><span class="p">,</span> <span class="n">bin_server_path</span><span class="p">,</span> <span class="n">bin_bitstream_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span>
+            <span class="n">force_update_bin</span><span class="p">,</span> <span class="n">bin_server_path</span><span class="p">,</span> <span class="n">bin_bitstream_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span>
         <span class="p">):</span>
             <span class="k">return</span>
 
@@ -390,13 +469,13 @@
 
 
     <span class="k">def</span> <span class="nf">_update_cracker_bin</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">force_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">operator_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">server_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">bitstream_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">force_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">operator_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">server_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bitstream_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">operator_port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">operator_port</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">DEFAULT_OPERATOR_PORT</span>
@@ -444,9 +523,9 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span>
-                    <span class="n">operator</span><span class="o">.</span><span class="n">update_server</span><span class="p">(</span><span class="n">bin_server</span><span class="p">)</span>
-                    <span class="ow">and</span> <span class="n">operator</span><span class="o">.</span><span class="n">update_bitstream</span><span class="p">(</span><span class="n">bin_bitstream</span><span class="p">)</span>
-                    <span class="ow">and</span> <span class="n">operator</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+                <span class="n">operator</span><span class="o">.</span><span class="n">update_server</span><span class="p">(</span><span class="n">bin_server</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">operator</span><span class="o">.</span><span class="n">update_bitstream</span><span class="p">(</span><span class="n">bin_bitstream</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">operator</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Do update cracker bin failed: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
@@ -455,7 +534,7 @@
             <span class="n">operator</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_get_version_file_path</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">bin_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span> <span class="n">hardware_model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">bin_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span> <span class="n">hardware_model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">dict_by_hardware</span> <span class="o">=</span> <span class="n">bin_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hardware_model</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">dict_by_hardware</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -496,10 +575,11 @@
 
 <div class="viewcode-block" id="BaseCracker.disconnect">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.disconnect">[docs]</a>
-    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Disconnect Cracker device.</span>
-<span class="sd">        :return: Cracker self.</span>
+<span class="sd">        Disconnect from cracker device.</span>
+
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_socket</span><span class="p">:</span>
@@ -516,8 +596,9 @@
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.reconnect">[docs]</a>
     <span class="k">def</span> <span class="nf">reconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reconnect to Cracker device.</span>
-<span class="sd">        :return: Cracker self.</span>
+<span class="sd">        Reconnect to cracker device.</span>
+
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span></div>
@@ -528,18 +609,23 @@
     <span class="k">def</span> <span class="nf">get_connection_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get connection status.</span>
-<span class="sd">        :return: True or False</span>
+
+<span class="sd">        :return: True for connected and False for disconnected.</span>
+<span class="sd">        :rtype: bool</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connection_status</span></div>
 
 
 <div class="viewcode-block" id="BaseCracker.send_and_receive">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.send_and_receive">[docs]</a>
-    <span class="k">def</span> <span class="nf">send_and_receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">send_and_receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Send message to socket</span>
-<span class="sd">        :param message:</span>
-<span class="sd">        :return:</span>
+<span class="sd">        Send message to cracker device.</span>
+
+<span class="sd">        :param message: The byte message to send.</span>
+<span class="sd">        :type message: bytes</span>
+<span class="sd">        :return: Received message in format: (status, message).</span>
+<span class="sd">        :rtype: tuple[int, bytes | None]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cracker not connected&quot;</span><span class="p">)</span>
@@ -598,7 +684,7 @@
 <div class="viewcode-block" id="BaseCracker.send_with_command">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.send_with_command">[docs]</a>
     <span class="k">def</span> <span class="nf">send_with_command</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rfu</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rfu</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">payload</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
@@ -609,6 +695,13 @@
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.get_default_config">[docs]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_default_config</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the default configuration. This method needs to be implemented by the specific device class,</span>
+<span class="sd">        as different devices have different default configurations.</span>
+
+<span class="sd">        :return: The default config object(The specific subclass of CommonConfig).</span>
+<span class="sd">        :rtype: CommonConfig</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="o">...</span></div>
 
 
@@ -649,7 +742,9 @@
 <span class="sd">        Dump the current config to a JSON file if a path is specified, or to a JSON string if no path is specified.</span>
 
 <span class="sd">        :param path: the path to the JSON file</span>
+<span class="sd">        :type path: str | None</span>
 <span class="sd">        :return: the content of JSON string or None if no path is specified.</span>
+<span class="sd">        :rtype: str | None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config_json</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dump_to_json</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -661,23 +756,27 @@
 
 <div class="viewcode-block" id="BaseCracker.load_config_from_file">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.load_config_from_file">[docs]</a>
-    <span class="k">def</span> <span class="nf">load_config_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">load_config_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load config from a JSON file.</span>
 
 <span class="sd">        :param path: the path to the JSON file</span>
+<span class="sd">        :type path: str</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">load_config_from_str</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_config_from_str</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()))</span></div>
 
 
 <div class="viewcode-block" id="BaseCracker.load_config_from_str">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.BaseCracker.load_config_from_str">[docs]</a>
-    <span class="k">def</span> <span class="nf">load_config_from_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">load_config_from_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Load config from a JSON string.</span>
 
 <span class="sd">        :param json_str: the JSON string</span>
+<span class="sd">        :type json_str: str</span>
+<span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span></div>
 </div>
@@ -993,6 +1092,7 @@
     <span class="k">def</span> <span class="nf">osc_set_sample_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rate</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set osc sample rate</span>
+
 <span class="sd">        :param rate: The sample rate in kHz</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;I&quot;</span><span class="p">,</span> <span class="n">rate</span><span class="p">)</span>
@@ -1200,6 +1300,7 @@
     <span class="k">def</span> <span class="nf">nut_set_clock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clock</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set nut clock.</span>
+
 <span class="sd">        :param clock: The clock of the nut in kHz</span>
 <span class="sd">        :type clock: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1248,7 +1349,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">osc_clock_divisor</span> <span class="o">=</span> <span class="n">div</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_spi_transceive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">is_delay</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_spi_transceive</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">is_delay</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Basic interface for sending and receiving data through the SPI protocol.</span>
 
@@ -1309,7 +1412,9 @@
 
 <div class="viewcode-block" id="CommonCracker.spi_transmit_delay_receive">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.CommonCracker.spi_transmit_delay_receive">[docs]</a>
-    <span class="k">def</span> <span class="nf">spi_transmit_delay_receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">spi_transmit_delay_receive</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send and receive data with delay through the SPI protocol.</span>
 
@@ -1345,11 +1450,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spi_transceive</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">is_delay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rx_count</span><span class="o">=</span><span class="n">rx_count</span><span class="p">,</span> <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_i2c_transceive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                        <span class="n">combined_transfer_count_1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">combined_transfer_count_2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                        <span class="n">transfer_rw</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-                        <span class="n">transfer_lens</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
-                        <span class="n">is_delay</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">_i2c_transceive</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">addr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">speed</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">combined_transfer_count_1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">combined_transfer_count_2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">transfer_rw</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">transfer_lens</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+        <span class="n">is_delay</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+        <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Basic API for sending and receiving data through the I2C protocol.</span>
 
@@ -1381,29 +1494,38 @@
             <span class="n">addr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">addr</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Illegal address&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Illegal address&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">data</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">speed</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Illegal speed&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Illegal speed&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">combined_transfer_count_1</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Illegal combined combined_transfer_count_1&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Illegal combined combined_transfer_count_1&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">combined_transfer_count_2</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Illegal combined combined_transfer_count_2&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Illegal combined combined_transfer_count_2&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transfer_rw</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">8</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;transfer_rw length must be 8&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;transfer_rw length must be 8&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">transfer_lens</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">8</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;transfer_lens length must be 8&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;transfer_lens length must be 8&quot;</span><span class="p">)</span>
 
         <span class="n">transfer_rw_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">bit</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bit</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">transfer_rw</span><span class="p">))</span>
 
-        <span class="n">payload</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;?I5B8H?&quot;</span><span class="p">,</span> <span class="n">is_delay</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">speed</span><span class="p">,</span> <span class="n">combined_transfer_count_1</span><span class="p">,</span>
-                              <span class="n">combined_transfer_count_2</span><span class="p">,</span>
-                              <span class="n">transfer_rw_num</span><span class="p">,</span> <span class="o">*</span><span class="n">transfer_lens</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span>
+            <span class="s2">&quot;&gt;?I5B8H?&quot;</span><span class="p">,</span>
+            <span class="n">is_delay</span><span class="p">,</span>
+            <span class="n">delay</span><span class="p">,</span>
+            <span class="n">addr</span><span class="p">,</span>
+            <span class="n">speed</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_1</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_2</span><span class="p">,</span>
+            <span class="n">transfer_rw_num</span><span class="p">,</span>
+            <span class="o">*</span><span class="n">transfer_lens</span><span class="p">,</span>
+            <span class="n">is_trigger</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">payload</span> <span class="o">+=</span> <span class="n">data</span>
@@ -1428,9 +1550,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transfer_rw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
         <span class="n">transfer_lens</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                    <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span> <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
-                                    <span class="n">is_delay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span>
+            <span class="n">addr</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span>
+            <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
+            <span class="n">is_delay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CommonCracker.i2c_receive">
@@ -1449,15 +1580,25 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transfer_rw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">transfer_lens</span> <span class="o">=</span> <span class="p">(</span><span class="n">rx_count</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                                    <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span> <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
-                                    <span class="n">is_delay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span>
+            <span class="n">addr</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span>
+            <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
+            <span class="n">is_delay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CommonCracker.i2c_transmit_delay_receive">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker.CommonCracker.i2c_transmit_delay_receive">[docs]</a>
-    <span class="k">def</span> <span class="nf">i2c_transmit_delay_receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span>
-                                   <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">i2c_transmit_delay_receive</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">addr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">is_trigger</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Send and receive data with delay through the I2C protocol.</span>
 
@@ -1476,9 +1617,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transfer_rw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">transfer_lens</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                    <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span> <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
-                                    <span class="n">is_delay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="n">delay</span><span class="p">,</span> <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span>
+            <span class="n">addr</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span>
+            <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
+            <span class="n">is_delay</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">delay</span><span class="o">=</span><span class="n">delay</span><span class="p">,</span>
+            <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CommonCracker.i2c_transceive">
@@ -1500,9 +1650,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">transfer_rw</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">transfer_lens</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rx_count</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                    <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span> <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
-                                    <span class="n">is_delay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_i2c_transceive</span><span class="p">(</span>
+            <span class="n">addr</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">speed</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">combined_transfer_count_2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">transfer_rw</span><span class="o">=</span><span class="n">transfer_rw</span><span class="p">,</span>
+            <span class="n">transfer_lens</span><span class="o">=</span><span class="n">transfer_lens</span><span class="p">,</span>
+            <span class="n">is_delay</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">is_trigger</span><span class="o">=</span><span class="n">is_trigger</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CommonCracker.cracker_serial_baud">
