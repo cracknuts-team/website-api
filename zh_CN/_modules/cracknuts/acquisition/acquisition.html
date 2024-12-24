@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=bda95818"></script>
+      <script src="../../../_static/documentation_options.js?v=302df098"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../../_static/translations.js?v=beaddf03"></script>
@@ -84,8 +84,8 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">cracknuts</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">cracknuts.cracker.cracker</span> <span class="kn">import</span> <span class="n">CommonCracker</span>
-<span class="kn">from</span> <span class="nn">cracknuts.solver.trace</span> <span class="kn">import</span> <span class="n">ScarrTraceDataset</span><span class="p">,</span> <span class="n">NumpyTraceDataset</span>
+<span class="kn">from</span> <span class="nn">cracknuts.cracker.cracker_basic</span> <span class="kn">import</span> <span class="n">CrackerBasic</span>
+<span class="kn">from</span> <span class="nn">cracknuts.trace.trace</span> <span class="kn">import</span> <span class="n">ScarrTraceDataset</span><span class="p">,</span> <span class="n">NumpyTraceDataset</span>
 
 
 <span class="k">class</span> <span class="nc">AcqProgress</span><span class="p">:</span>
@@ -107,7 +107,7 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">cracker</span><span class="p">:</span> <span class="n">CommonCracker</span><span class="p">,</span>
+        <span class="n">cracker</span><span class="p">:</span> <span class="n">CrackerBasic</span><span class="p">,</span>
         <span class="n">trace_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
         <span class="n">sample_length</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">sample_offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -129,7 +129,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_current_trace_count</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_run_thread_pause_event</span><span class="p">:</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">cracker</span><span class="p">:</span> <span class="n">CommonCracker</span> <span class="o">=</span> <span class="n">cracker</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cracker</span><span class="p">:</span> <span class="n">CrackerBasic</span> <span class="o">=</span> <span class="n">cracker</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trace_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">trace_count</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sample_length</span> <span class="o">=</span> <span class="n">sample_length</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sample_offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">sample_offset</span>
@@ -153,7 +153,7 @@
 
 <div class="viewcode-block" id="Acquisition.set_cracker">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.set_cracker">[文档]</a>
-    <span class="k">def</span> <span class="nf">set_cracker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cracker</span><span class="p">:</span> <span class="n">CommonCracker</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">set_cracker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cracker</span><span class="p">:</span> <span class="n">CrackerBasic</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cracker</span> <span class="o">=</span> <span class="n">cracker</span></div>
 
 
@@ -737,16 +737,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_do_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="o">...</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="o">...</span>
 
-    <span class="k">def</span> <span class="nf">cracker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cracker</span><span class="p">:</span> <span class="n">CommonCracker</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">cracker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cracker</span><span class="p">:</span> <span class="n">CrackerBasic</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cracker</span> <span class="o">=</span> <span class="n">cracker</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">CommonCracker</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">CrackerBasic</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">init_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_function</span> <span class="o">=</span> <span class="n">init_function</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">CommonCracker</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">CrackerBasic</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
         <span class="k">if</span> <span class="n">do_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_do_function</span> <span class="o">=</span> <span class="n">do_function</span>
         <span class="k">return</span> <span class="bp">self</span>
