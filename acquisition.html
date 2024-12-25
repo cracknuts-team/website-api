@@ -77,12 +77,35 @@
   <section id="acquisition">
 <h1>Acquisition<a class="headerlink" href="#acquisition" title="Link to this heading"></a></h1>
 <p><cite>Acquisition</cite> is responsible for managing the process of waveform data acquisition.</p>
+<p>Data acquisition has two modes: <cite>Test</cite> and <cite>Run</cite>: <cite>Test</cite> and <cite>Run</cite>. The <cite>Test</cite> mode can be understood as a debugging mode,
+where real-time adjustments to the Cracker configuration and data acquisition settings can be made to achieve better data collection
+results (currently, this mode is meaningful only in the Jupyter environment, where waveforms can be viewed in real-time through the
+oscilloscope panel). In this mode, the acquired waveform data is not saved.</p>
+<p>In the <cite>Run</cite> mode, the user cannot make real-time configurations to the device. This mode is mainly used for data collection after
+various parameter adjustments are completed. In this mode, the user can specify the file path and file format for saving the data.</p>
+<p>The acquisition process consists of the following steps:</p>
+<ul class="simple">
+<li><p>Pre-initialization</p></li>
+<li><p>Initialization</p></li>
+<li><p>Post-initialization</p></li>
+<li><p>Pre-acquisition</p></li>
+<li><p>Data acquisition</p></li>
+<li><p>Post-acquisition</p></li>
+<li><p>Pre-completion</p></li>
+<li><p>Completion</p></li>
+<li><p>Post-completion</p></li>
+</ul>
+<p>The end user mainly needs to focus on the Initialization and Data Acquisition steps, which are the <cite>init</cite> and <cite>do</cite> methods of the <cite>Acquisition</cite> class in the code.
+Typically, key settings for the device are made in <cite>init</cite>, while specific operations like encrypted data transmission and result reception are handled in <cite>do</cite>.</p>
+<p>The flowchart is shown below:</p>
+<img alt="_images/acquisition_struct.drawio.png" src="_images/acquisition_struct.drawio.png" />
 <section id="id1">
 <h2>Acquisition<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cracknuts.acquisition.acquisition.</span></span><span class="sig-name descname"><span class="pre">Acquisition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cracker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_handler_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_max_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scarr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Trace acquisition process control class</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">DO_ERROR_HANDLER_STRATEGY_CONTINUE_UNTIL_MAX_ERROR_COUNT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em></dt>
@@ -145,22 +168,31 @@
 <dl class="py method">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">do</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.do"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>The <cite>do</cite> logic, which the user should implement in the subclass.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">dump_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.dump_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Dump the current config to a JSON file if a path is specified, or to a JSON string if no path is specified.
-:type path: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>
-:param path: the path to the JSON file
-:rtype: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>
-:return: the content of JSON string or None if no path is specified.</p>
+<dd><p>Dump the current config to a JSON file if a path is specified, or to a JSON string if no path is specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the path to the JSON file</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the content of JSON string or None if no path is specified.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">get_last_wave</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.get_last_wave"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Get the last wave.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>] | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
@@ -175,17 +207,19 @@
 <dl class="py method">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>The <cite>init</cite> logic, which the user should implement in the subclass.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">load_config_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.load_config_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Load config from a JSON file
-:type path: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>
-:param path: the path to the JSON file</p>
+<dd><p>Load config from a JSON file.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the path to the JSON file</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -193,12 +227,13 @@
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">load_config_from_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.load_config_from_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Load config from a JSON string
-:type json_str: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>
-:param json_str: the JSON string</p>
+<dd><p>Load config from a JSON string.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_str</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – the JSON string</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -239,7 +274,8 @@ please use the node functions in the ACQ lifecycle point: <cite>init</cite>, <ci
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>Pause test or run mode.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -254,17 +290,58 @@ please use the node functions in the ACQ lifecycle point: <cite>init</cite>, <ci
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.resume"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>Resume from paused test or run mode.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_max_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_handler_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scarr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>Start run mode in the background.
+The parameters configured here will override the settings specified in <cite>__init__</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> (<em>int</em>) – The number of traces to acquire.</p></li>
+<li><p><strong>sample_length</strong> (<em>int</em>) – The sample length to be acquired.</p></li>
+<li><p><strong>sample_offset</strong> (<em>int</em>) – The sample offset to be acquired.</p></li>
+<li><p><strong>data_length</strong> (<em>int</em>) – The data length to be acquired.</p></li>
+<li><p><strong>trigger_judge_wait_time</strong> (<em>float</em>) – The trigger judge wait time in seconds.</p></li>
+<li><p><strong>trigger_judge_timeout</strong> (<em>float</em>) – The trigger judge timeout in seconds.</p></li>
+<li><p><strong>do_error_max_count</strong> (<em>int</em>) – The maximum number of error count.
+If <cite>do_error_handler_strategy</cite> is 0, this setting is invalid.</p></li>
+<li><p><strong>do_error_handler_strategy</strong> (<em>int</em>) – The strategy to handle error handling.
+0: Exit immediately, 1: Exit after exceeding the error count.</p></li>
+<li><p><strong>file_format</strong> (<em>str</em>) – The file format of the trace dataset. “scarr” or “numpy”.</p></li>
+<li><p><strong>file_path</strong> (<em>str</em>) – The file path of the trace dataset. If set to “auto”, a folder with a timestamp format
+will be created in the current working directory to save the data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">run_sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_max_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_handler_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scarr'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.run_sync"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<span class="sig-name descname"><span class="pre">run_sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_max_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_handler_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scarr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.run_sync"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Start run mode in the foreground, which will cause blocking.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> (<em>int</em>) – The number of traces to acquire.</p></li>
+<li><p><strong>sample_length</strong> (<em>int</em>) – The sample length to be acquired.</p></li>
+<li><p><strong>sample_offset</strong> (<em>int</em>) – The sample offset to be acquired.</p></li>
+<li><p><strong>trigger_judge_wait_time</strong> (<em>float</em>) – The trigger judge wait time in seconds.</p></li>
+<li><p><strong>trigger_judge_timeout</strong> (<em>float</em>) – The trigger judge timeout in seconds.</p></li>
+<li><p><strong>do_error_max_count</strong> (<em>int</em>) – The maximum number of error count.
+If <cite>do_error_handler_strategy</cite> is 0, this setting is invalid.</p></li>
+<li><p><strong>do_error_handler_strategy</strong> (<em>int</em>) – The strategy to handle error handling.
+0: Exit immediately, 1: Exit after exceeding the error count.</p></li>
+<li><p><strong>file_format</strong> (<em>str</em>) – The file format of the trace dataset. “scarr” or “numpy”.</p></li>
+<li><p><strong>file_path</strong> (<em>str</em>) – The file path of the trace dataset. If set to “auto”, a folder with a timestamp format
+will be created in the current working directory to save the data.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -274,17 +351,50 @@ please use the node functions in the ACQ lifecycle point: <cite>init</cite>, <ci
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>Stop test or run mode.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_max_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_handler_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.test"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>Start test mode in background.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> (<em>int</em>) – The number of traces to acquire. normally this value should be -1.</p></li>
+<li><p><strong>sample_length</strong> (<em>int</em>) – The sample length to be acquired.</p></li>
+<li><p><strong>sample_offset</strong> (<em>int</em>) – The sample offset to be acquired.</p></li>
+<li><p><strong>trigger_judge_wait_time</strong> (<em>float</em>) – The trigger judge wait time in seconds.</p></li>
+<li><p><strong>trigger_judge_timeout</strong> (<em>float</em>) – The trigger judge timeout in seconds.</p></li>
+<li><p><strong>do_error_max_count</strong> (<em>int</em>) – The maximum number of error count.
+If <cite>do_error_handler_strategy</cite> is 0, this setting is invalid.</p></li>
+<li><p><strong>do_error_handler_strategy</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – The strategy to handle error handling.
+0: Exit immediately, 1: Exit after exceeding the error count.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">test_sync</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_wait_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trigger_judge_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_max_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_error_handler_strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/cracknuts/acquisition/acquisition.html#Acquisition.test_sync"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd></dd></dl>
+<dd><p>Start test mode in foreground, which will cause blocking.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>count</strong> (<em>int</em>) – The number of traces to acquire. normally this value should be -1.</p></li>
+<li><p><strong>sample_length</strong> (<em>int</em>) – The sample length to be acquired.</p></li>
+<li><p><strong>sample_offset</strong> (<em>int</em>) – The sample offset to be acquired.</p></li>
+<li><p><strong>trigger_judge_wait_time</strong> (<em>float</em>) – The trigger judge wait time in seconds.</p></li>
+<li><p><strong>trigger_judge_timeout</strong> (<em>float</em>) – The trigger judge timeout in seconds.</p></li>
+<li><p><strong>do_error_max_count</strong> (<em>int</em>) – The maximum number of error count.
+If <cite>do_error_handler_strategy</cite> is 0, this setting is invalid.</p></li>
+<li><p><strong>do_error_handler_strategy</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – The strategy to handle error handling.
+0: Exit immediately, 1: Exit after exceeding the error count.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">

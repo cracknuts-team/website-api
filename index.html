@@ -73,17 +73,16 @@
              
   <section id="cracknuts-api-documentation">
 <h1>CrackNuts API Documentation<a class="headerlink" href="#cracknuts-api-documentation" title="Link to this heading"></a></h1>
-<p>CrackNuts is an integrated side-channel analysis framework that combines the collaborative work of hardware and software.
+<p>CrackNuts is an integrated side-channel analysis solution that combines the collaborative work of hardware and software.
 The host application is developed in Python and optimized for the Jupyter environment,
 providing an intuitive user experience to enhance ease of use and efficiency.</p>
 <p>This document outlines the architecture, features, and API interfaces of the CrackNuts host application
 to help developers efficiently utilize the program for side-channel analysis.</p>
-<p>The <cite>CrackNuts</cite> host application abstracts two concepts: <cite>Cracker</cite> and <cite>Acquisition</cite>.
-The <cite>Cracker</cite> represents the devices within <cite>CrackNuts</cite>,
-used for operations such as device configuration, data transmission, and data collection.
-The <cite>Acquisition</cite> represents the execution flow in either test or run mode,
-which includes key processes such as device configuration, data transmission, and data collection.
-For detailed information, refer to <cite>acquisition.rst</cite>.</p>
+<p>The <cite>CrackNuts</cite> host application abstracts two main concepts: <cite>Cracker</cite> and <cite>Acquisition</cite>.
+The <cite>Cracker</cite> represents the devices within <cite>CrackNuts</cite>, used for operations such as device configuration, data transmission, and data collection.
+The <cite>Acquisition</cite> represents the execution flow in either test or run mode, which includes key processes such as device configuration, data transmission, and data collection.</p>
+<p>The overall architecture of the host computer is shown in the diagram below.</p>
+<img alt="_images/struct.drawio.png" src="_images/struct.drawio.png" />
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cracker.html">Cracker</a><ul>

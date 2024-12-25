@@ -97,6 +97,10 @@
 <div class="viewcode-block" id="Acquisition">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition">[文档]</a>
 <span class="k">class</span> <span class="nc">Acquisition</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Trace acquisition process control class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">STATUS_STOPPED</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">STATUS_TESTING</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">STATUS_RUNNING</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
@@ -120,8 +124,32 @@
         <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param cracker: The controlled Cracker object.</span>
+<span class="sd">        :type cracker: CrackerBasic</span>
+<span class="sd">        :param trace_count: The number of traces to acquire.</span>
+<span class="sd">        :type trace_count: int</span>
 <span class="sd">        :param sample_length: the sample length to be acquired,</span>
-<span class="sd">                              it will set to `cracker.current_count().sample_len` if it is -1</span>
+<span class="sd">                              If it is -1, it will be set to the value of `cracker.current_count().sample_len`.</span>
+<span class="sd">        :type sample_length: int</span>
+<span class="sd">        :param sample_offset: the sample offset to be acquired.</span>
+<span class="sd">        :type sample_offset: int</span>
+<span class="sd">        :param data_length: the data length to be acquired.</span>
+<span class="sd">        :type data_length: int</span>
+<span class="sd">        :param trigger_judge_timeout: The trigger judge timeout in seconds.</span>
+<span class="sd">        :type trigger_judge_timeout: float</span>
+<span class="sd">        :param trigger_judge_wait_time: The trigger judge wait time in seconds.</span>
+<span class="sd">        :type trigger_judge_wait_time: float</span>
+<span class="sd">        :param do_error_handler_strategy: The strategy to handle error handling.</span>
+<span class="sd">                                          0: Exit immediately, 1: Exit after exceeding the error count.</span>
+<span class="sd">        :type do_error_handler_strategy: int</span>
+<span class="sd">        :param do_error_max_count: The maximum number of error count.</span>
+<span class="sd">                                   If `do_error_handler_strategy` is 0, this setting is invalid.</span>
+<span class="sd">        :type do_error_max_count: int</span>
+<span class="sd">        :param file_format: The file format of the trace dataset. &quot;scarr&quot; or &quot;numpy&quot;.</span>
+<span class="sd">        :type file_format: str</span>
+<span class="sd">        :param file_path: The file path of the trace dataset. If set to &quot;auto&quot;, a folder with a timestamp format</span>
+<span class="sd">                          will be created in the current working directory to save the data.</span>
+<span class="sd">        :type file_path: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">get_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_wave</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">)}</span>
@@ -196,6 +224,34 @@
         <span class="n">file_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;scarr&quot;</span><span class="p">,</span>
         <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start run mode in the background.</span>
+<span class="sd">        The parameters configured here will override the settings specified in `__init__`.</span>
+
+<span class="sd">        :param count: The number of traces to acquire.</span>
+<span class="sd">        :type count: int</span>
+<span class="sd">        :param sample_length: The sample length to be acquired.</span>
+<span class="sd">        :type sample_length: int</span>
+<span class="sd">        :param sample_offset: The sample offset to be acquired.</span>
+<span class="sd">        :type sample_offset: int</span>
+<span class="sd">        :param data_length: The data length to be acquired.</span>
+<span class="sd">        :type data_length: int</span>
+<span class="sd">        :param trigger_judge_wait_time: The trigger judge wait time in seconds.</span>
+<span class="sd">        :type trigger_judge_wait_time: float</span>
+<span class="sd">        :param trigger_judge_timeout: The trigger judge timeout in seconds.</span>
+<span class="sd">        :type trigger_judge_timeout: float</span>
+<span class="sd">        :param do_error_max_count: The maximum number of error count.</span>
+<span class="sd">                                   If `do_error_handler_strategy` is 0, this setting is invalid.</span>
+<span class="sd">        :type do_error_max_count: int</span>
+<span class="sd">        :param do_error_handler_strategy: The strategy to handle error handling.</span>
+<span class="sd">                                          0: Exit immediately, 1: Exit after exceeding the error count.</span>
+<span class="sd">        :type do_error_handler_strategy: int</span>
+<span class="sd">        :param file_format: The file format of the trace dataset. &quot;scarr&quot; or &quot;numpy&quot;.</span>
+<span class="sd">        :type file_format: str</span>
+<span class="sd">        :param file_path: The file path of the trace dataset. If set to &quot;auto&quot;, a folder with a timestamp format</span>
+<span class="sd">                          will be created in the current working directory to save the data.</span>
+<span class="sd">        :type file_path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -226,7 +282,33 @@
         <span class="n">do_error_max_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">do_error_handler_strategy</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">file_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;scarr&quot;</span><span class="p">,</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start run mode in the foreground, which will cause blocking.</span>
+
+<span class="sd">        :param count: The number of traces to acquire.</span>
+<span class="sd">        :type count: int</span>
+<span class="sd">        :param sample_length: The sample length to be acquired.</span>
+<span class="sd">        :type sample_length: int</span>
+<span class="sd">        :param sample_offset: The sample offset to be acquired.</span>
+<span class="sd">        :type sample_offset: int</span>
+<span class="sd">        :param trigger_judge_wait_time: The trigger judge wait time in seconds.</span>
+<span class="sd">        :type trigger_judge_wait_time: float</span>
+<span class="sd">        :param trigger_judge_timeout: The trigger judge timeout in seconds.</span>
+<span class="sd">        :type trigger_judge_timeout: float</span>
+<span class="sd">        :param do_error_max_count: The maximum number of error count.</span>
+<span class="sd">                                   If `do_error_handler_strategy` is 0, this setting is invalid.</span>
+<span class="sd">        :type do_error_max_count: int</span>
+<span class="sd">        :param do_error_handler_strategy: The strategy to handle error handling.</span>
+<span class="sd">                                          0: Exit immediately, 1: Exit after exceeding the error count.</span>
+<span class="sd">        :type do_error_handler_strategy: int</span>
+<span class="sd">        :param file_format: The file format of the trace dataset. &quot;scarr&quot; or &quot;numpy&quot;.</span>
+<span class="sd">        :type file_format: str</span>
+<span class="sd">        :param file_path: The file path of the trace dataset. If set to &quot;auto&quot;, a folder with a timestamp format</span>
+<span class="sd">                          will be created in the current working directory to save the data.</span>
+<span class="sd">        :type file_path: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_do_run</span><span class="p">(</span>
                 <span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -238,6 +320,7 @@
                 <span class="n">do_error_max_count</span><span class="o">=</span><span class="n">do_error_max_count</span><span class="p">,</span>
                 <span class="n">do_error_handler_strategy</span><span class="o">=</span><span class="n">do_error_handler_strategy</span><span class="p">,</span>
                 <span class="n">file_format</span><span class="o">=</span><span class="n">file_format</span><span class="p">,</span>
+                <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;stop by timeout.&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
@@ -257,6 +340,25 @@
         <span class="n">do_error_max_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">do_error_handler_strategy</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start test mode in background.</span>
+
+<span class="sd">        :param count: The number of traces to acquire. normally this value should be -1.</span>
+<span class="sd">        :type count: int</span>
+<span class="sd">        :param sample_length: The sample length to be acquired.</span>
+<span class="sd">        :type sample_length: int</span>
+<span class="sd">        :param sample_offset: The sample offset to be acquired.</span>
+<span class="sd">        :type sample_offset: int</span>
+<span class="sd">        :param trigger_judge_wait_time: The trigger judge wait time in seconds.</span>
+<span class="sd">        :type trigger_judge_wait_time: float</span>
+<span class="sd">        :param trigger_judge_timeout: The trigger judge timeout in seconds.</span>
+<span class="sd">        :type trigger_judge_timeout: float</span>
+<span class="sd">        :param do_error_max_count: The maximum number of error count.</span>
+<span class="sd">                                   If `do_error_handler_strategy` is 0, this setting is invalid.</span>
+<span class="sd">        :type do_error_max_count: int</span>
+<span class="sd">        :param do_error_handler_strategy: The strategy to handle error handling.</span>
+<span class="sd">                                          0: Exit immediately, 1: Exit after exceeding the error count.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Resume to test mode.&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
@@ -286,6 +388,25 @@
         <span class="n">do_error_max_count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">do_error_handler_strategy</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start test mode in foreground, which will cause blocking.</span>
+
+<span class="sd">        :param count: The number of traces to acquire. normally this value should be -1.</span>
+<span class="sd">        :type count: int</span>
+<span class="sd">        :param sample_length: The sample length to be acquired.</span>
+<span class="sd">        :type sample_length: int</span>
+<span class="sd">        :param sample_offset: The sample offset to be acquired.</span>
+<span class="sd">        :type sample_offset: int</span>
+<span class="sd">        :param trigger_judge_wait_time: The trigger judge wait time in seconds.</span>
+<span class="sd">        :type trigger_judge_wait_time: float</span>
+<span class="sd">        :param trigger_judge_timeout: The trigger judge timeout in seconds.</span>
+<span class="sd">        :type trigger_judge_timeout: float</span>
+<span class="sd">        :param do_error_max_count: The maximum number of error count.</span>
+<span class="sd">                                   If `do_error_handler_strategy` is 0, this setting is invalid.</span>
+<span class="sd">        :type do_error_max_count: int</span>
+<span class="sd">        :param do_error_handler_strategy: The strategy to handle error handling.</span>
+<span class="sd">                                          0: Exit immediately, 1: Exit after exceeding the error count.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_do_run</span><span class="p">(</span>
                 <span class="n">test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -305,6 +426,10 @@
 <div class="viewcode-block" id="Acquisition.pause">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.pause">[文档]</a>
     <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pause test or run mode.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_run_thread_pause_event</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_STATUS_PAUSED_SWITCH</span></div>
@@ -313,6 +438,10 @@
 <div class="viewcode-block" id="Acquisition.resume">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.resume">[文档]</a>
     <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resume from paused test or run mode.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_run_thread_pause_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_STATUS_PAUSED_SWITCH</span></div>
@@ -321,6 +450,10 @@
 <div class="viewcode-block" id="Acquisition.stop">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.stop">[文档]</a>
     <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stop test or run mode.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_thread_pause_event</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_run_thread_pause_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">STATUS_STOPPED</span></div>
@@ -608,7 +741,12 @@
 <div class="viewcode-block" id="Acquisition.init">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.init">[文档]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span></div>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The `init` logic, which the user should implement in the subclass.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
 
 
     <span class="k">def</span> <span class="nf">_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
@@ -627,7 +765,12 @@
 <div class="viewcode-block" id="Acquisition.do">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.do">[文档]</a>
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
-    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span></div>
+    <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The `do` logic, which the user should implement in the subclass.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
 
 
     <span class="k">def</span> <span class="nf">_do</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -667,6 +810,10 @@
 <div class="viewcode-block" id="Acquisition.get_last_wave">
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.get_last_wave">[文档]</a>
     <span class="k">def</span> <span class="nf">get_last_wave</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the last wave.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_wave</span></div>
 
 
@@ -675,6 +822,7 @@
     <span class="k">def</span> <span class="nf">dump_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Dump the current config to a JSON file if a path is specified, or to a JSON string if no path is specified.</span>
+
 <span class="sd">        :param path: the path to the JSON file</span>
 <span class="sd">        :return: the content of JSON string or None if no path is specified.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -698,7 +846,8 @@
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.load_config_from_file">[文档]</a>
     <span class="k">def</span> <span class="nf">load_config_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load config from a JSON file</span>
+<span class="sd">        Load config from a JSON file.</span>
+
 <span class="sd">        :param path: the path to the JSON file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -709,7 +858,8 @@
 <a class="viewcode-back" href="../../../acquisition.html#cracknuts.acquisition.acquisition.Acquisition.load_config_from_str">[文档]</a>
     <span class="k">def</span> <span class="nf">load_config_from_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">json_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load config from a JSON string</span>
+<span class="sd">        Load config from a JSON string.</span>
+
 <span class="sd">        :param json_str: the JSON string</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
@@ -732,26 +882,59 @@
 
 
 <span class="k">class</span> <span class="nc">AcquisitionBuilder</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The helper class for create a Sub acquisition class.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cracker</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_do_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="o">...</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_init_function</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="o">...</span>
 
     <span class="k">def</span> <span class="nf">cracker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cracker</span><span class="p">:</span> <span class="n">CrackerBasic</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Specify the cracker for acquisition.</span>
+
+<span class="sd">        :param cracker: the cracker</span>
+<span class="sd">        :type cracker: CrackerBasic</span>
+<span class="sd">        :return: &#39;AcquisitionBuilder&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_cracker</span> <span class="o">=</span> <span class="n">cracker</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">CrackerBasic</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The init function of acquisition.</span>
+
+<span class="sd">        :param init_function: the init function</span>
+<span class="sd">        :type init_function: typing.Callable[[CrackerBasic], None]</span>
+<span class="sd">        :return: &#39;AcquisitionBuilder&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">init_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_init_function</span> <span class="o">=</span> <span class="n">init_function</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">do</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">do_function</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">CrackerBasic</span><span class="p">],</span> <span class="kc">None</span><span class="p">]):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The do function of acquisition.</span>
+
+<span class="sd">        :param do_function: the do function</span>
+<span class="sd">        :type do_function: typing.Callable[[CrackerBasic], None]</span>
+<span class="sd">        :return: &#39;AcquisitionBuilder&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">do_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_do_function</span> <span class="o">=</span> <span class="n">do_function</span>
         <span class="k">return</span> <span class="bp">self</span>
 
     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the acquisition object.</span>
+
+<span class="sd">        :param kwargs: other keyword arguments of Acquisition.</span>
+<span class="sd">        :type kwargs: dict</span>
+<span class="sd">        :return Acquisition</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cracker</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No cracker&quot;</span><span class="p">)</span>
 
