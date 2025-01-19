@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=5a057da9"></script>
+      <script src="../../../_static/documentation_options.js?v=9e420a66"></script>
       <script src="../../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -73,6 +73,7 @@
 <span></span><span class="c1"># Copyright 2024 CrackNuts. All rights reserved.</span>
 
 <span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">importlib.util</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -86,7 +87,6 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">packaging.version</span> <span class="kn">import</span> <span class="n">Version</span>
 
-<span class="kn">import</span> <span class="nn">cracknuts</span>
 <span class="kn">import</span> <span class="nn">cracknuts.utils.hex_util</span> <span class="k">as</span> <span class="nn">hex_util</span>
 <span class="kn">from</span> <span class="nn">cracknuts</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">cracknuts.cracker</span> <span class="kn">import</span> <span class="n">protocol</span>
@@ -99,10 +99,38 @@
 <div class="viewcode-block" id="ConfigBasic.__init__">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.ConfigBasic.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_channel_enable</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_gain</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_sample_len</span> <span class="o">=</span> <span class="mi">1024</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_sample_delay</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_sample_rate</span> <span class="o">=</span> <span class="mi">65000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_sample_phase</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_trigger_source</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_trigger_mode</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_trigger_edge</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_trigger_edge_level</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_coupling</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_voltage</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_bias_voltage</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_digital_voltage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_digital_trigger_source</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_analog_gain_raw</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_clock_base_freq_mul_div</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_clock_sample_divisor</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_clock_simple</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_clock_phase</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">osc_clock_divisor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="c1"># The name list of fields whose value type is dict[int, Any]. When converting to a dictionary from JSON,</span>
         <span class="c1"># numbers are converted to strings, so this needs to be handled separately. The subclass should overwrite</span>
         <span class="c1"># this field when its field has a similar structure.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">int_dict_fields</span> <span class="o">=</span> <span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">int_dict_fields</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;osc_analog_channel_enable&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;osc_analog_coupling&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;osc_analog_voltage&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;osc_analog_bias_voltage&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;osc_analog_gain&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;osc_analog_gain_raw&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -188,9 +216,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_connection_status</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bin_server_path</span> <span class="o">=</span> <span class="n">bin_server_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_bin_bitstream_path</span> <span class="o">=</span> <span class="n">bin_bitstream_path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span> <span class="o">=</span> <span class="n">operator_port</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">DEFAULT_OPERATOR_PORT</span> <span class="k">if</span> <span class="n">operator_port</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">operator_port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_address</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default_config</span><span class="p">()</span></div>
 
 
@@ -259,6 +288,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span> <span class="o">=</span> <span class="n">host</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="CrackerBasic.get_operator">
+<a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.get_operator">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_operator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Operator</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the operator object for this Cracker instance.</span>
+
+<span class="sd">        :return: Operator object.</span>
+<span class="sd">        :rtype: Operator</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
+
+
 <div class="viewcode-block" id="CrackerBasic.get_uri">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.get_uri">[docs]</a>
     <span class="k">def</span> <span class="nf">get_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
@@ -285,6 +326,7 @@
         <span class="n">force_update_bin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">update_unknown</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Connect to cracker device.</span>
@@ -298,6 +340,8 @@
 <span class="sd">        :type bin_server_path: str | None</span>
 <span class="sd">        :param bin_bitstream_path: The bin_bitstream (firmware) file for updates.</span>
 <span class="sd">        :type bin_bitstream_path: str | None</span>
+<span class="sd">        :param update_unknown: Whether to update the unknown firmware.</span>
+<span class="sd">        :type update_unknown: bool</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">bin_server_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -306,7 +350,7 @@
             <span class="n">bin_bitstream_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bin_bitstream_path</span>
 
         <span class="k">if</span> <span class="n">update_bin</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_cracker_bin</span><span class="p">(</span>
-            <span class="n">force_update_bin</span><span class="p">,</span> <span class="n">bin_server_path</span><span class="p">,</span> <span class="n">bin_bitstream_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span>
+            <span class="n">force_update_bin</span><span class="p">,</span> <span class="n">bin_server_path</span><span class="p">,</span> <span class="n">bin_bitstream_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator_port</span><span class="p">,</span> <span class="n">update_unknown</span><span class="o">=</span><span class="n">update_unknown</span>
         <span class="p">):</span>
             <span class="k">return</span>
 
@@ -330,26 +374,24 @@
         <span class="n">force_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">bin_server_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">bin_bitstream_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">operator_port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">server_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">bitstream_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">update_unknown</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">operator_port</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">operator_port</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">DEFAULT_OPERATOR_PORT</span>
-        <span class="n">operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">operator_port</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">operator</span><span class="o">.</span><span class="n">connect</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">connect</span><span class="p">():</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">force_update</span> <span class="ow">and</span> <span class="n">operator</span><span class="o">.</span><span class="n">get_status</span><span class="p">():</span>
-            <span class="n">operator</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">force_update</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">get_status</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
             <span class="k">return</span> <span class="kc">True</span>
 
-        <span class="n">hardware_model</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">get_hardware_model</span><span class="p">()</span>
+        <span class="n">hardware_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">get_hardware_model</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">hardware_model</span> <span class="o">==</span> <span class="s2">&quot;unknown&quot;</span> <span class="ow">and</span> <span class="n">update_unknown</span><span class="p">:</span>
+            <span class="n">hardware_model</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
 
-        <span class="n">bin_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cracknuts</span><span class="o">.</span><span class="vm">__file__</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">)</span>
-        <span class="n">user_home_bin_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;.cracknuts&quot;</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">)</span>
-        <span class="n">current_bin_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;.bin&quot;</span><span class="p">)</span>
+        <span class="n">bin_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">find_spec</span><span class="p">(</span><span class="s2">&quot;cracknuts&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">origin</span><span class="p">),</span> <span class="s2">&quot;firmware&quot;</span><span class="p">)</span>
+        <span class="n">user_home_bin_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">),</span> <span class="s2">&quot;.cracknuts&quot;</span><span class="p">,</span> <span class="s2">&quot;firmware&quot;</span><span class="p">)</span>
+        <span class="n">current_bin_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;.firmware&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">bin_server_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">bin_bitstream_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">server_bin_dict</span><span class="p">,</span> <span class="n">bitstream_bin_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_find_bin_files</span><span class="p">(</span><span class="n">bin_path</span><span class="p">,</span> <span class="n">user_home_bin_path</span><span class="p">,</span> <span class="n">current_bin_path</span><span class="p">)</span>
@@ -361,41 +403,54 @@
             <span class="k">if</span> <span class="n">bin_bitstream_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">bin_bitstream_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_version_file_path</span><span class="p">(</span><span class="n">bitstream_bin_dict</span><span class="p">,</span> <span class="n">hardware_model</span><span class="p">,</span> <span class="n">bitstream_version</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">bin_server_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bin_server_path</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Server binary file not found for hardware: </span><span class="si">{</span><span class="n">hardware_model</span><span class="si">}</span><span class="s2"> and server_version: </span><span class="si">{</span><span class="n">server_version</span><span class="si">}</span><span class="s2">.&quot;</span>
-            <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">bin_server_path</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bin_server_path</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">bin_bitstream_path</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bin_bitstream_path</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="n">bin_server_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bin_server_path</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Server binary file not found for hardware: </span><span class="si">{</span><span class="n">hardware_model</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;and server_version: </span><span class="si">{</span><span class="n">server_version</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="n">bin_bitstream_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bin_bitstream_path</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Bitstream file not found for hardware: </span><span class="si">{</span><span class="n">hardware_model</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;and bitstream_version: </span><span class="si">{</span><span class="n">bitstream_version</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-        <span class="k">if</span> <span class="n">bin_bitstream_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">bin_bitstream_path</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Bitstream file not found for hardware: </span><span class="si">{</span><span class="n">hardware_model</span><span class="si">}</span><span class="s2"> and bitstream_version: </span><span class="si">{</span><span class="n">bitstream_version</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">hardware_model</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span> <span class="ow">and</span> <span class="n">update_unknown</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Device return unknown hardware: </span><span class="si">{</span><span class="n">hardware_model</span><span class="si">}</span><span class="s2">, and update_unknown is True,&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;The firmware bitstream: </span><span class="si">{</span><span class="n">bin_bitstream_path</span><span class="si">}</span><span class="s2"> and server: </span><span class="si">{</span><span class="n">bin_server_path</span><span class="si">}</span><span class="s2"> is used.&quot;</span>
             <span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get bit_server file at </span><span class="si">{</span><span class="n">bin_server_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get bin_bitstream file at </span><span class="si">{</span><span class="n">bin_bitstream_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get bit_server file at </span><span class="si">{</span><span class="n">bin_server_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get bin_bitstream file at </span><span class="si">{</span><span class="n">bin_bitstream_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
         <span class="n">bin_server</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">bin_server_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">bin_bitstream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">bin_bitstream_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span>
-                <span class="n">operator</span><span class="o">.</span><span class="n">update_server</span><span class="p">(</span><span class="n">bin_server</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="n">operator</span><span class="o">.</span><span class="n">update_bitstream</span><span class="p">(</span><span class="n">bin_bitstream</span><span class="p">)</span>
-                <span class="ow">and</span> <span class="n">operator</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">update_server</span><span class="p">(</span><span class="n">bin_server</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">update_bitstream</span><span class="p">(</span><span class="n">bin_bitstream</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">get_status</span><span class="p">()</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Do update cracker bin failed: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="n">operator</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">disconnect</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_get_version_file_path</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">bin_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span> <span class="n">hardware_model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">dict_by_hardware</span> <span class="o">=</span> <span class="n">bin_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hardware_model</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">dict_by_hardware</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;bin file dict is none: </span><span class="si">{</span><span class="n">hardware_model</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_version_file_path</span><span class="p">(</span><span class="n">bin_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span> <span class="n">hardware_model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">hardware_model</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span><span class="p">:</span>
+            <span class="n">dict_by_hardware</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">bin_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dict_by_hardware</span> <span class="o">=</span> <span class="n">bin_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">hardware_model</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dict_by_hardware</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">dict_by_hardware</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">sorted_version</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">dict_by_hardware</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">Version</span><span class="p">)</span>
@@ -404,7 +459,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_find_bin_files</span><span class="p">(</span><span class="o">*</span><span class="n">bin_paths</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]]:</span>
-        <span class="n">server_path_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;server-(?P&lt;hardware&gt;.+?)-(?P&lt;firmware&gt;.+?)&quot;</span>
+        <span class="n">server_path_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;server-(?P&lt;hardware&gt;.+?)-(?P&lt;firmware&gt;.+?).bin&quot;</span>
         <span class="n">bitstream_path_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;bitstream-(?P&lt;hardware&gt;.+?)-(?P&lt;firmware&gt;.+?).bit.bin&quot;</span>
 
         <span class="n">server_bin_dict</span> <span class="o">=</span> <span class="p">{}</span>
@@ -506,16 +561,15 @@
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="sa">f</span><span class="s2">&quot;Receive header from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span><span class="si">}</span><span class="s2">: &quot;</span>
-                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">magic</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">status</span><span class="si">:</span><span class="s2">02X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">magic</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s2">, 0x</span><span class="si">{</span><span class="n">status</span><span class="si">:</span><span class="s2">04X</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">length</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
-            <span class="k">if</span> <span class="n">status</span> <span class="o">&gt;=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_ERROR</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status error: </span><span class="si">{</span><span class="n">status</span><span class="si">:</span><span class="s2">02X</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="kc">None</span>
             <span class="n">resp_payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recv</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">status</span> <span class="o">&gt;=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_ERROR</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Receive payload from </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_server_address</span><span class="si">}</span><span class="s2">: </span><span class="se">\n</span><span class="si">{</span><span class="n">hex_util</span><span class="o">.</span><span class="n">get_bytes_matrix</span><span class="p">(</span><span class="n">resp_payload</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Received a non-OK response status code: 0x</span><span class="si">{</span><span class="n">status</span><span class="si">:</span><span class="s2">04X</span><span class="si">}</span><span class="s2">, &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;with the payload: </span><span class="si">{</span><span class="n">resp_payload</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">isEnabledFor</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
@@ -640,87 +694,126 @@
 
 <div class="viewcode-block" id="CrackerBasic.get_id">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.get_id">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the ID of the equipment.</span>
+
+<span class="sd">        :return: The equipment response status code and the ID of the equipment.</span>
+<span class="sd">        :rtype: tuple[int, str | None]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_ID</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status code error [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="CrackerBasic.get_name">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.get_name">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the name of the equipment.</span>
+
+<span class="sd">        :return: The equipment response status code and the name of the equipment.</span>
+<span class="sd">        :rtype: tuple[int, str | None]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_NAME</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status code error [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="CrackerBasic.get_version">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.get_version">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">get_version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the version of the equipment.</span>
+
+<span class="sd">        :return: The equipment response status code and the version of the equipment.</span>
+<span class="sd">        :rtype: tuple[int, str | None]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_VERSION</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status code error [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span></div>
 
 
 <div class="viewcode-block" id="CrackerBasic.osc_single">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.osc_single">[docs]</a>
-    <span class="k">def</span> <span class="nf">osc_single</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">osc_single</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;scrat_sample_len payload: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
         <span class="n">status</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">OSC_SINGLE</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status code error [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="CrackerBasic.osc_force">
+<a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.osc_force">[docs]</a>
+    <span class="k">def</span> <span class="nf">osc_force</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Force produce a wave data.</span>
+
+<span class="sd">        :return: The device response status</span>
+<span class="sd">        :rtype: tuple[int, None]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scrat_force payload: </span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">OSC_FORCE</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CrackerBasic.osc_is_triggered">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.osc_is_triggered">[docs]</a>
-    <span class="k">def</span> <span class="nf">osc_is_triggered</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">osc_is_triggered</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scrat_is_triggered payload: </span><span class="si">{</span><span class="n">payload</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">status</span><span class="p">,</span> <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">OSC_IS_TRIGGERED</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status code error [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="kc">False</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">res_code</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;big&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">res_code</span> <span class="o">==</span> <span class="mi">4</span></div>
+            <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;is_triggered get empty payload.&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">res_code</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="s2">&quot;big&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">res_code</span> <span class="o">==</span> <span class="mi">4</span></div>
 
 
 <div class="viewcode-block" id="CrackerBasic.osc_get_analog_wave">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.osc_get_analog_wave">[docs]</a>
-    <span class="k">def</span> <span class="nf">osc_get_analog_wave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">osc_get_analog_wave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the analog wave.</span>
+
+<span class="sd">        :param channel: the channel of the analog wave.</span>
+<span class="sd">        :type channel: int</span>
+<span class="sd">        :param offset: the offset of the analog wave.</span>
+<span class="sd">        :type offset: int</span>
+<span class="sd">        :param sample_count: the sample count of the analog wave.</span>
+<span class="sd">        :type sample_count: int</span>
+<span class="sd">        :return: the analog wave.</span>
+<span class="sd">        :rtype: tuple[int, np.ndarray]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;BII&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scrat_get_analog_wave payload: </span><span class="si">{</span><span class="n">payload</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">status</span><span class="p">,</span> <span class="n">wave_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">OSC_GET_ANALOG_WAVES</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status code error [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">wave_bytes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+                <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">wave</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample_count</span><span class="si">}</span><span class="s2">h&quot;</span><span class="p">,</span> <span class="n">wave_bytes</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span></div>
+                <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="CrackerBasic.osc_get_digital_wave">
 <a class="viewcode-back" href="../../../cracker.html#cracknuts.cracker.cracker_basic.CrackerBasic.osc_get_digital_wave">[docs]</a>
-    <span class="k">def</span> <span class="nf">osc_get_digital_wave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">osc_get_digital_wave</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;BII&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">sample_count</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;scrat_get_digital_wave payload: </span><span class="si">{</span><span class="n">payload</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">status</span><span class="p">,</span> <span class="n">wave_bytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send_with_command</span><span class="p">(</span><span class="n">protocol</span><span class="o">.</span><span class="n">Command</span><span class="o">.</span><span class="n">OSC_GET_ANALOG_WAVES</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">protocol</span><span class="o">.</span><span class="n">STATUS_OK</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Receive status code error [</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+            <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">wave_bytes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+                <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">wave</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample_count</span><span class="si">}</span><span class="s2">h&quot;</span><span class="p">,</span> <span class="n">wave_bytes</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span></div>
+                <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">)</span></div>
 </div>
 
 </pre></div>
